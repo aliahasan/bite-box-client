@@ -1,17 +1,6 @@
 "use client";
 
-import {
-  Bot,
-  Frame,
-  LifeBuoy,
-  Map,
-  PieChart,
-  Send,
-  Settings,
-  SquareTerminal,
-} from "lucide-react";
-import * as React from "react";
-
+import logo from "@/assets/logo.png";
 import {
   Sidebar,
   SidebarContent,
@@ -21,15 +10,26 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { useUser } from "@/hooks/useUser";
+import {
+  Bot,
+  Home,
+  Map,
+  PieChart,
+  Settings,
+  SquareTerminal,
+  User2,
+} from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import * as React from "react";
 import { NavMain } from "./NavMain";
 import { SidebarUser } from "./SidebarUser";
-
 const data = {
-  navMain: [
+  navCustomer: [
     {
       title: "Dashboard",
-      url: "/user/dashboard",
+      url: "/customer/dashboard",
       icon: SquareTerminal,
       isActive: true,
     },
@@ -40,7 +40,7 @@ const data = {
       items: [
         {
           title: "Manage Products",
-          url: "/user/shop/products",
+          url: "/customer/products",
         },
         {
           title: "Manage Categories",
@@ -69,7 +69,34 @@ const data = {
       ],
     },
   ],
-  navSecondary: [
+  navProvider: [
+    {
+      title: "Dashboard",
+      url: "/provider/dashboard",
+      icon: SquareTerminal,
+    },
+    {
+      title: "Food cart Profile",
+      url: "#",
+      icon: User2,
+    },
+    {
+      title: "Food Cart",
+      url: "#",
+      icon: Home,
+      items: [
+        {
+          title: "All Meal",
+          url: "/provider/all-meal",
+        },
+        {
+          title: "Add Meal",
+          url: "/provider/add-meal",
+        },
+      ],
+    },
+  ],
+  navAdmin: [
     {
       title: "Dashboard",
       url: "/admin/dashboard",
@@ -77,29 +104,12 @@ const data = {
       isActive: true,
     },
     {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Feedback",
-      url: "#",
-      icon: Send,
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
+      title: "Sales & Marketing",
       url: "#",
       icon: PieChart,
     },
     {
-      name: "Travel",
+      title: "Travel",
       url: "#",
       icon: Map,
     },
@@ -107,6 +117,8 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user } = useUser();
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -114,9 +126,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <Link href="/">
-                <div className="flex items-center justify-center">logo</div>
+                <div className="flex items-center justify-center">
+                  <Image src={logo} alt="logo" className="w-12 rounded-full" />
+                </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <h2 className="font-bold text-xl">NextMart</h2>
+                  <h2 className="font-bold text-xl">BiteBox</h2>
                 </div>
               </Link>
             </SidebarMenuButton>
@@ -124,7 +138,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        {user?.role === "customer" ? (
+          <NavMain items={data.navCustomer} />
+        ) : user?.role === "provider" ? (
+          <NavMain items={data.navProvider} />
+        ) : user?.role === "admin" ? (
+          <NavMain items={data.navAdmin} />
+        ) : null}
       </SidebarContent>
       <SidebarFooter>
         <SidebarUser />

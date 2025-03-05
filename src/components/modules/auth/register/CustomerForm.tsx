@@ -73,7 +73,7 @@ const CustomerForm = () => {
             <Button
               disabled={loading}
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white cursor-pointer"
             >
               {loading ? "Processing...." : "Register"}
             </Button>

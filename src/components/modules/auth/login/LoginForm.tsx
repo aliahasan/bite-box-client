@@ -70,7 +70,7 @@ const LoginForm = () => {
 
           <Button
             type="submit"
-            className="w-full py-2 text-sm font-medium rounded-md bg-indigo-600 hover:bg-indigo-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 mt-4"
+            className="w-full py-2 text-sm font-medium rounded-md bg-indigo-600 hover:bg-indigo-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 mt-4 cursor-pointer"
           >
             {loading ? "Signing in..." : "Sign in"}
           </Button>

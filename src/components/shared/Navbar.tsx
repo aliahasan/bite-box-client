@@ -16,7 +16,7 @@ const Navbar = () => {
 
   const navLinks = [
     { label: "Home", href: "/" },
-    { label: "Find Meals", href: "/find-meals" },
+    { label: "Find Meals", href: "/find-meal" },
     { label: "Meal Providers", href: "/meal-providers" },
   ];
 
@@ -41,7 +41,7 @@ const Navbar = () => {
             <Link
               key={link.href}
               href={link.href}
-              className="hover:text-orange-400 transition"
+              className="hover:text-orange-500 transition"
             >
               {link.label}
             </Link>
@@ -53,13 +53,18 @@ const Navbar = () => {
           {user ? (
             <>
               <Link href="/create-food-cart">
-                <Button className="rounded-full">Create Food Cart</Button>
+                <Button className="rounded-full text-[12px] bg-red-500 hover:bg-red-500">
+                  Create Food Cart
+                </Button>
               </Link>
               <NavUser />
             </>
           ) : (
             <Link href="/login">
-              <Button variant="outline" className="rounded-full text-black">
+              <Button
+                variant="outline"
+                className="rounded-full text-black cursor-pointer"
+              >
                 Login
               </Button>
             </Link>

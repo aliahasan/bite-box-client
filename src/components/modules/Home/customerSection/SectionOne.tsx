@@ -22,7 +22,7 @@ const SectionOne = () => {
           Choose your meals, set your dietary preferences, and get fresh meals
           delivered right to your doorstep.
         </p>
-        <Button className="mt-6 px-6 py-3 text-lg rounded-full bg-orange-500 hover:bg-orange-600 transition">
+        <Button className="mt-6 px-6 py-3 text-sm rounded-full bg-orange-500 hover:bg-orange-600 transition">
           Explore Meal Plans
         </Button>
       </div>

@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const ManageMenu = () => {
   return (
-    <div className="relative container mx-auto bg-white py-16 px-6 md:px-12 flex flex-col md:flex-row items-center gap-12">
+    <div className="relative container mx-auto px-4 bg-white py-16 flex flex-col md:flex-row items-center gap-12">
       {/* Image Section */}
       <div className="w-full md:w-1/2">
         <Image
