@@ -8,8 +8,10 @@ import BBEditor from "@/form/BBEditor";
 import BBForm from "@/form/BBForm";
 import BBInput from "@/form/BBInput";
 import BBSelect from "@/form/BBSelect";
+import { createMeal } from "@/services/Meal";
 import { useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import { toast } from "sonner";
 
 const portionSizes = [
   { value: "small", label: "Small" },
@@ -20,19 +22,49 @@ const portionSizes = [
 const AddMealForm = () => {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreview, setImagePreview] = useState<string[] | []>([]);
+  const [loading, isLoading] = useState(false);
 
-  const handleSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+  const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const updatedFormData = {
+      ...data,
+      price: parseFloat(data?.price),
+      averageRating: parseFloat(data?.averageRating),
+      dietaryPreferences: data?.dietaryPreferences
+        .split(",")
+        .map((item: string) => item.trim())
+        .filter((item: string) => item !== ""),
+      ingredients: data?.ingredients
+        .split(",")
+        .map((item: string) => item.trim())
+        .filter((item: string) => item !== ""),
+    };
+
+    const formdata = new FormData();
+    formdata.append("data", JSON.stringify(updatedFormData));
+    formdata.append("image", imageFiles[0] as File);
+    try {
+      isLoading(true);
+      const res = await createMeal(formdata);
+      if (res?.success) {
+        toast.success(res?.message);
+      } else {
+        toast.error(res?.message);
+      }
+      isLoading(false);
+    } catch (error) {
+      console.log(error);
+      isLoading(false);
+    }
   };
 
   return (
-    <Card className="max-w-5xl mx-auto bg-white shadow-md rounded-xl p-4">
+    <Card className="max-w-5xl mx-auto bg-white shadow-none rounded-xl p-4">
       <CardHeader>
         <CardTitle className="text-xl font-semibold text-gray-800">
           Add a New Meal
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-1">
         <div className="flex flex-col items-start gap-6">
           {/* Image Upload Section */}
           <div className="flex gap-x-4">
@@ -58,24 +90,28 @@ const AddMealForm = () => {
                   type="text"
                   placeholder="Meal Name"
                   label="Meal Name"
+                  required
                 />
                 <BBInput
                   name="price"
                   type="number"
                   placeholder="Price"
                   label="Price ($)"
+                  required
                 />
                 <BBInput
                   name="category"
                   type="text"
                   placeholder="Category"
                   label="Category"
+                  required
                 />
                 <BBInput
                   name="cuisine"
                   type="text"
                   placeholder="Cuisine"
                   label="Cuisine Type"
+                  required
                 />
                 <BBSelect
                   options={portionSizes}
@@ -83,33 +119,44 @@ const AddMealForm = () => {
                   placeholder="Portion Sizes"
                   label="Portion Sizes"
                   isMulti
+                  required
                 />
                 <BBInput
                   name="dietaryPreferences"
                   type="text"
                   placeholder="Dietary Preferences"
-                  label="Dietary Preferences"
+                  label="Dietary Preferences (comma separated )"
+                  required
                 />
                 <BBInput
                   name="ingredients"
                   type="text"
                   placeholder="Ingredients"
-                  label="Ingredients"
+                  label="Ingredients (comma separated)"
+                  required
+                />
+                <BBInput
+                  name="averageRating"
+                  type="number"
+                  placeholder="Ratings"
+                  label="Average Rating (number)"
+                  required
                 />
               </div>
 
               {/* Editor at the bottom - Full Width */}
               <div className="mt-6 w-full">
-                <BBEditor name="details" />
+                <BBEditor name="description" required />
               </div>
 
               {/* Submit Button */}
               <div className="mt-6 flex justify-end">
                 <Button
+                  disabled={loading}
                   type="submit"
-                  className="bg-primary text-white px-6 py-2 text-sm hover:bg-primary/90 transition-all"
+                  className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 text-sm "
                 >
-                  Add Meal
+                  {loading ? "Processing" : "Add meal"}
                 </Button>
               </div>
             </BBForm>

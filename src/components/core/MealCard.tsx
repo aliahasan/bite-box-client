@@ -8,7 +8,7 @@ import Link from "next/link";
 
 const MealCard = ({ meal }: { meal: IMeal }) => {
   return (
-    <Card className="w-full max-w-sm bg-white shadow-sm rounded-2xl overflow-hidden p-2 ">
+    <Card className="w-full max-w-sm bg-white shadow-none rounded-2xl overflow-hidden p-2 ">
       <div className="relative w-full h-60">
         <Image
           src={meal.image}
@@ -51,8 +51,7 @@ const MealCard = ({ meal }: { meal: IMeal }) => {
         <div className="flex justify-between items-center mt-4">
           <div>
             <span className="text-sm text-gray-600">
-              <Link href={`/meal/${meal._id}`}>
-                {" "}
+              <Link href={`/find-meal/${meal._id}`}>
                 <Button className="bg-orange-500 hover:bg-orange-600 cursor-pointer">
                   View Details
                 </Button>
