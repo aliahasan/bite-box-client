@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Separator } from "@/components/ui/separator";
 import { Slider } from "@/components/ui/slider";
 import { getAllCategories, getAllCuisines } from "@/services/Meal";
 import { Star } from "lucide-react";
@@ -49,7 +50,7 @@ const FilterSidebar = () => {
   };
 
   return (
-    <div className="p-6 bg-white shadow-md rounded-lg w-full">
+    <div className="p-6 bg-white border rounded-lg w-full">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-semibold">Filter</h2>
         {searchParams.toString().length > 0 && (
@@ -58,14 +59,16 @@ const FilterSidebar = () => {
               router.push(`${pathname}`, { scroll: false });
             }}
             size="sm"
-            className="bg-black hover:bg-gray-700 ml-5"
+            className="bg-orange-500 ml-5 hover:bg-orange-500"
           >
             Clear Filters
           </Button>
         )}
       </div>
+      <Separator />
+
       {/* Filter by Price */}
-      <div className="mb-6">
+      <div className="my-6 ">
         <h2 className="text-lg font-semibold mb-4">Price</h2>
         <div className="flex items-center justify-between text-sm mb-2">
           <span>৳ 0</span>
