@@ -1,0 +1,91 @@
+@import "tailwindcss";
+.markdown {
+  @apply text-gray-800 dark:text-gray-300 leading-relaxed max-w-full break-words;
+}
+
+/* Headings */
+.markdown h1 {
+  @apply text-3xl font-bold text-gray-900 dark:text-white mt-6 mb-4;
+}
+.markdown h2 {
+  @apply text-2xl font-semibold text-gray-900 dark:text-gray-200 mt-5 mb-3;
+}
+.markdown h3 {
+  @apply text-xl font-semibold text-gray-800 dark:text-gray-300 mt-4 mb-2;
+}
+.markdown h4 {
+  @apply text-lg font-semibold text-gray-700 dark:text-gray-400 mt-3 mb-2;
+}
+
+/* Paragraph */
+.markdown p {
+  @apply text-base text-gray-700 dark:text-gray-300 mb-4;
+}
+
+/* Lists */
+.markdown ul {
+  @apply list-disc pl-6 mb-4;
+}
+.markdown ol {
+  @apply list-decimal pl-6 mb-4;
+}
+.markdown li {
+  @apply text-base text-gray-700 dark:text-gray-300 mb-2;
+}
+
+/* Blockquotes */
+.markdown blockquote {
+  @apply border-l-4 border-gray-400 pl-4 italic text-gray-600 dark:text-gray-300 my-4;
+}
+
+/* Code Blocks */
+.markdown pre {
+  @apply bg-gray-900 text-gray-200 p-4 rounded-md overflow-x-auto my-4;
+}
+.markdown code {
+  @apply bg-gray-200 dark:bg-gray-800 text-red-600 dark:text-red-400 px-1 py-0.5 rounded;
+}
+.markdown pre code {
+  @apply bg-transparent text-gray-200;
+}
+
+/* Links */
+.markdown a {
+  @apply text-blue-600 dark:text-blue-400 underline hover:text-blue-800;
+}
+
+/* Tables */
+.markdown table {
+  @apply w-full border-collapse border border-gray-300 dark:border-gray-600 my-4;
+}
+.markdown th,
+.markdown td {
+  @apply border border-gray-300 dark:border-gray-600 px-3 py-2;
+}
+.markdown th {
+  @apply bg-gray-100 dark:bg-gray-700 font-semibold text-gray-800 dark:text-gray-200;
+}
+.markdown td {
+  @apply text-gray-700 dark:text-gray-300;
+}
+
+/* Images */
+.markdown img {
+  @apply max-w-full h-auto rounded-md my-4;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .markdown h1 {
+    @apply text-2xl;
+  }
+  .markdown h2 {
+    @apply text-xl;
+  }
+  .markdown h3 {
+    @apply text-lg;
+  }
+  .markdown h4 {
+    @apply text-base;
+  }
+}
