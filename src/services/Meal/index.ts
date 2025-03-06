@@ -35,7 +35,7 @@ export const getAllMeals = async (
     const data = await response.json();
     return data;
   } catch (error: any) {
-    return Error(error.message);
+    return Error(error);
   }
 };
 

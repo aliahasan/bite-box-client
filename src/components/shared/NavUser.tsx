@@ -36,11 +36,10 @@ const NavUser = () => {
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Profile</DropdownMenuItem>
         <Link href={`${user?.role}/dashboard`}>
           <DropdownMenuItem>Dashboard</DropdownMenuItem>
         </Link>
-        <DropdownMenuItem>My shop</DropdownMenuItem>
+        {/* <DropdownMenuItem>My shop</DropdownMenuItem> */}
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="bg-red-500 cursor-pointer"

@@ -2,7 +2,7 @@
 
 import { useUser } from "@/hooks/useUser";
 import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, ShoppingCart, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -50,13 +50,13 @@ const Navbar = () => {
 
         {/* Right Side: Create Food Cart + NavUser + Mobile Menu */}
         <div className="flex items-center space-x-4">
+          <div>
+            <Link href="/cart">
+              <ShoppingCart />
+            </Link>
+          </div>
           {user ? (
             <>
-              <Link href="/create-food-cart">
-                <Button className="rounded-full text-[12px] bg-red-500 hover:bg-red-500">
-                  Create Food Cart
-                </Button>
-              </Link>
               <NavUser />
             </>
           ) : (
