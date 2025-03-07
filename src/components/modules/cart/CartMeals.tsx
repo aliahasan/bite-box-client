@@ -1,12 +1,14 @@
 "use client";
 import emptyCart from "@/assets/empty-cart.png";
+import { orderedMealSelector } from "@/redux/features/cartSlice";
+import { useAppSelector } from "@/redux/hooks";
 import Image from "next/image";
 import CartMealCard from "./CartMealCard";
 const CartMeals = () => {
-  const products: [] = [];
+  const cartMeals = useAppSelector(orderedMealSelector);
   return (
-    <div className="border-2 border-white bg-background brightness-105 rounded-md col-span-8 h-full row-span-3 p-10 space-y-5">
-      {products?.length === 0 && (
+    <div className="border-2 brightness-105 rounded-md w-full p-4 space-y-5">
+      {cartMeals?.length === 0 && (
         <div className="text-center text-gray-500">
           <p className="text-lg font-semibold">Your cart is empty</p>
           <p className="mt-2">
@@ -18,9 +20,11 @@ const CartMeals = () => {
           </div>
         </div>
       )}
-      {products?.map((product: any) => (
-        <CartMealCard key={product._id} product={product} />
-      ))}
+      <div className="w-full">
+        {cartMeals?.map((meal: any) => (
+          <CartMealCard key={meal._id} meal={meal} />
+        ))}
+      </div>
     </div>
   );
 };

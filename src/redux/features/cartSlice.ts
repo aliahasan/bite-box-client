@@ -4,16 +4,18 @@ import { RootState } from "../store";
 
 export interface CartMeal extends IMeal {
   quantity: number;
-  selectedPortionSize: string; // Stores the user-selected portion size
 }
 
 interface InitialState {
   meals: CartMeal[];
   shippingAddress: string;
   foodCart: string;
-  dietaryPreferences: string[];
-  dietaryRestrictions: string[];
+  dietaryPreferences?: string[];
+  dietaryRestrictions?: string[];
   discountAmount: number;
+  portionSize?: string;
+  deliveryCharge: number;
+  schedule?: string;
 }
 
 const initialState: InitialState = {
@@ -23,6 +25,9 @@ const initialState: InitialState = {
   dietaryPreferences: [],
   dietaryRestrictions: [],
   discountAmount: 0,
+  portionSize: "",
+  schedule: "",
+  deliveryCharge: 0,
 };
 
 const cartSlice = createSlice({
@@ -31,9 +36,13 @@ const cartSlice = createSlice({
   reducers: {
     addMeal: (state, action) => {
       if (state.meals.length === 0) {
-        state.foodCart = action.payload.meal._id;
+        state.foodCart = action.payload?.foodCart._id;
+      } else if (
+        state.foodCart &&
+        state.foodCart !== action.payload.foodCart._id
+      ) {
+        return;
       }
-
       const mealToAdd = state.meals.find(
         (meal) => meal._id === action.payload._id
       );
@@ -46,7 +55,6 @@ const cartSlice = createSlice({
       state.meals.push({
         ...action.payload,
         quantity: 1,
-        selectedPortionSize: action.payload.selectedPortionSize || "small",
       });
     },
 
@@ -80,12 +88,12 @@ const cartSlice = createSlice({
       state.dietaryRestrictions = action.payload;
     },
 
-    updatePortionSize: (state, action) => {
-      const { mealId, portionSize } = action.payload;
-      const meal = state.meals.find((meal) => meal._id === mealId);
-      if (meal) {
-        meal.selectedPortionSize = portionSize;
-      }
+    setSchedule: (state, action) => {
+      state.schedule = action.payload;
+    },
+
+    setPortionSize: (state, action) => {
+      state.portionSize = action.payload;
     },
 
     clearCart: (state) => {
@@ -94,6 +102,7 @@ const cartSlice = createSlice({
       state.foodCart = "";
       state.dietaryPreferences = [];
       state.dietaryRestrictions = [];
+      state.schedule = "";
     },
   },
 });
@@ -105,45 +114,54 @@ export const orderSelector = (state: RootState) => {
     meals: state.cart.meals.map((meal) => ({
       meal: meal._id,
       quantity: meal.quantity,
-      portionSize: meal.selectedPortionSize,
+      portionSize: state.cart.portionSize,
     })),
     shippingAddress: state.cart.shippingAddress,
     paymentMethod: "Online",
     foodCart: state.cart.foodCart,
-    dietaryPreferences: state.cart.dietaryPreferences,
-    dietaryRestrictions: state.cart.dietaryRestrictions,
+    dietaryPreferences: state.cart?.dietaryPreferences,
+    dietaryRestrictions: state.cart?.dietaryRestrictions,
+    schedule: state.cart?.schedule,
   };
 };
 
-export const foodCartSelector = (state: RootState) => {
-  return state.cart.foodCart;
-};
+export const foodCartSelector = (state: RootState) => state.cart.foodCart;
 
-// here is the payment calculation
+export const portionSelector = (state: RootState) => state.cart.portionSize;
+
+export const deliveryChargeSelector = (state: RootState) =>
+  state.cart.deliveryCharge;
+
+// Payment calculation
 export const subtotalSelector = (state: RootState) => {
   return state.cart.meals.reduce((acc, meal) => {
-    if (meal.portionSize === "medium") {
-      return acc + meal.price * meal.quantity + 10;
-    }
-    if (meal.portionSize === "large") {
+    if (state.cart.portionSize === "medium") {
       return acc + meal.price * meal.quantity + 20;
+    }
+    if (state.cart.portionSize === "large") {
+      return acc + meal.price * meal.quantity + 40;
     } else {
       return acc + meal.price * meal.quantity;
     }
   }, 0);
 };
 
-export const shippingAddressSelector = (state: RootState) => {
-  return state.cart.shippingAddress;
+export const grandTotalSelector = (state: RootState) => {
+  const subTotal = subtotalSelector(state);
+  const deliveryCharge = deliveryChargeSelector(state);
+  return subTotal + deliveryCharge;
 };
 
-export const dietaryPreferencesSelector = (state: RootState) => {
-  return state.cart.dietaryPreferences;
-};
+export const shippingAddressSelector = (state: RootState) =>
+  state.cart.shippingAddress;
 
-export const dietaryRestrictionsSelector = (state: RootState) => {
-  return state.cart.dietaryRestrictions;
-};
+export const dietaryPreferencesSelector = (state: RootState) =>
+  state.cart.dietaryPreferences;
+
+export const dietaryRestrictionsSelector = (state: RootState) =>
+  state.cart.dietaryRestrictions;
+
+export const scheduleSelector = (state: RootState) => state.cart.schedule;
 
 export const {
   addMeal,
@@ -153,7 +171,8 @@ export const {
   updateShippingAddress,
   setDietaryPreferences,
   setDietaryRestrictions,
-  updatePortionSize,
+  setSchedule,
+  setPortionSize,
   clearCart,
 } = cartSlice.actions;
 

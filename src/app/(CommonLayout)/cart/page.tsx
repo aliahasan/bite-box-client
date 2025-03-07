@@ -8,9 +8,13 @@ const CartPage = () => {
     <div>
       <BBContainer>
         <MealBanner title="Cart Page" path="Home-Cart" />
-        <div className="grid grid-cols-12 gap-8 my-5">
-          <CartMeals />
-          <PaymentDetails />
+        <div className="flex flex-col lg:gap-x-8 lg:flex-row w-full py-10">
+          <div className="w-full lg:w-[1000px]">
+            <CartMeals />
+          </div>
+          <div className="flex-1 pt-10 lg:pt-0">
+            <PaymentDetails />
+          </div>
         </div>
       </BBContainer>
     </div>

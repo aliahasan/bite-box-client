@@ -1,5 +1,7 @@
 import { protectedRoutes } from "@/constant";
 import { useUser } from "@/hooks/useUser";
+import { clearCart } from "@/redux/features/cartSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import { logout } from "@/services/authService";
 import { LogOut } from "lucide-react";
 import Link from "next/link";
@@ -16,6 +18,7 @@ import {
 
 const NavUser = () => {
   const { user, setIsLoading } = useUser();
+  const dispatch = useAppDispatch();
   const pathName = usePathname();
   const router = useRouter();
   const handleLogout = () => {
@@ -24,6 +27,7 @@ const NavUser = () => {
     if (protectedRoutes.some((route) => pathName.match(route))) {
       router.push("/");
     }
+    dispatch(clearCart());
   };
   return (
     <DropdownMenu>

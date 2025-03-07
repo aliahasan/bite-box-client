@@ -1,12 +1,28 @@
+"use client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { addMeal, foodCartSelector } from "@/redux/features/cartSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IMeal } from "@/types/meal.type";
 import { ShoppingCart, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { toast } from "sonner";
 
 const MealCard = ({ meal }: { meal: IMeal }) => {
+  const dispatch = useAppDispatch();
+  const foodCart = useAppSelector(foodCartSelector);
+
+  const handleAddToCart = (meal: IMeal) => {
+    if (foodCart && foodCart !== meal.foodCart._id) {
+      toast.error("You can only add meals from the same food cart!");
+      return;
+    }
+    dispatch(addMeal(meal));
+    toast.success("Meal added to cart!");
+  };
+
   return (
     <div className="w-full h-auto bg-white border rounded-2xl overflow-hidden p-2">
       <div className="relative w-full h-48 rounded-lg overflow-hidden">
@@ -55,6 +71,8 @@ const MealCard = ({ meal }: { meal: IMeal }) => {
             </Button>
           </Link>
           <Button
+            onClick={() => handleAddToCart(meal)}
+            disabled={!meal?.available}
             size="sm"
             className="bg-orange-500 hover:bg-orange-600 text-white transition-colors duration-300"
           >

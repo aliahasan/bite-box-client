@@ -1,19 +1,22 @@
 "use client";
 
 import { useUser } from "@/hooks/useUser";
+import { orderedMealSelector } from "@/redux/features/cartSlice";
+import { useAppSelector } from "@/redux/hooks";
 import { motion } from "framer-motion";
 import { Menu, ShoppingCart, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import logo from "../../assets/logo.png";
+import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import NavUser from "./NavUser";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useUser();
-
+  const cartData = useAppSelector(orderedMealSelector);
   const navLinks = [
     { label: "Home", href: "/" },
     { label: "Find Meals", href: "/find-meal" },
@@ -50,9 +53,14 @@ const Navbar = () => {
 
         {/* Right Side: Create Food Cart + NavUser + Mobile Menu */}
         <div className="flex items-center space-x-4">
-          <div>
+          <div className="relative cursor-pointer">
             <Link href="/cart">
               <ShoppingCart />
+              {cartData.length > 0 && (
+                <Badge className="absolute -top-4 left-2 bg-white text-black rounded-full text-xs p-1 min-w-[24px] min-h-[20px] flex items-center justify-center shadow-lg">
+                  {cartData.length}
+                </Badge>
+              )}
             </Link>
           </div>
           {user ? (
