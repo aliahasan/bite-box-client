@@ -1,5 +1,6 @@
 import Image from "next/image";
 import MealDescription from "../MealDescription/MealDescription";
+import BuyNow from "./BuyNow";
 
 interface Meal {
   image?: string;
@@ -31,7 +32,7 @@ const MealsDetails = ({ meal }: { meal: Meal }) => {
 
       {/* Meal Name and Price */}
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
           {meal?.name || "Meal Name"}
         </h1>
         <p className="text-2xl font-semibold text-gray-700">
@@ -43,7 +44,7 @@ const MealsDetails = ({ meal }: { meal: Meal }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Dietary Preferences */}
         <div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">
             Dietary Preferences
           </h3>
           <div className="flex flex-wrap gap-2">
@@ -62,7 +63,7 @@ const MealsDetails = ({ meal }: { meal: Meal }) => {
 
         {/* Cuisine */}
         <div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">Cuisine</h3>
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">Cuisine</h3>
           <p className="text-gray-600">
             {meal?.cuisine || "No cuisine specified"}
           </p>
@@ -128,6 +129,9 @@ const MealsDetails = ({ meal }: { meal: Meal }) => {
         <MealDescription
           description={meal?.description || "No description available."}
         />
+      </div>
+      <div>
+        <BuyNow meal={meal} />
       </div>
     </div>
   );

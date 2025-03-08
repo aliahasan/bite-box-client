@@ -79,7 +79,7 @@ const PaymentDetails = () => {
       <Button
         onClick={handleOrder}
         disabled={cartMeals.length === 0}
-        className="w-full text-sm font-semibold py-5"
+        className="w-full text-sm bg-orange-500 hover:bg-orange-600 font-semibold py-5"
       >
         Order Now
       </Button>

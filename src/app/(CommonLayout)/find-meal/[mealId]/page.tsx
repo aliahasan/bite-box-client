@@ -1,6 +1,14 @@
 import BBContainer from "@/components/core/BBContainer/BBContainer";
 import MealsDetails from "@/components/modules/Meal/MealDetails.tsx";
-import { getSingleMeal } from "@/services/Meal";
+import { getAllMeals, getSingleMeal } from "@/services/Meal";
+import { IMeal } from "@/types";
+
+export const generateStaticParams = async () => {
+  const { data } = await getAllMeals();
+  return data?.slice(0, 4).map((meal: IMeal) => ({
+    mealId: meal?._id,
+  }));
+};
 
 const MealDetailsPage = async ({
   params,
@@ -13,13 +21,8 @@ const MealDetailsPage = async ({
   return (
     <div className="py-10">
       <BBContainer>
-        <div className="flex">
-          <div className="flex-1">
-            <MealsDetails meal={meal} />
-          </div>
-          <div className="flex-1">
-            <h1>This is Name</h1>
-          </div>
+        <div>
+          <MealsDetails meal={meal} />
         </div>
       </BBContainer>
     </div>

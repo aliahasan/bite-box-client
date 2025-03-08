@@ -17,13 +17,8 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-import { usePathname, useRouter } from "next/navigation";
-
 export function SidebarUser() {
   const { isMobile } = useSidebar();
-
-  const router = useRouter();
-  const pathname = usePathname();
 
   return (
     <SidebarMenu>

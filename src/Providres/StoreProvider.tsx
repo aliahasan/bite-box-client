@@ -9,9 +9,9 @@ const StoreProvider = ({ children }: { children: ReactNode }) => {
   if (!storeRef.current) {
     storeRef.current = makeStore();
   }
-  const persistedStore = persistStore(storeRef.current);
+  const persistedStore = persistStore(storeRef?.current);
   return (
-    <Provider store={storeRef.current}>
+    <Provider store={storeRef?.current}>
       <PersistGate loading={"Loading"} persistor={persistedStore}>
         {children}
       </PersistGate>
