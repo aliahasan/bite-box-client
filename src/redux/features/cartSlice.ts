@@ -1,5 +1,5 @@
 import { IMeal } from "@/types";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 export interface CartMeal extends IMeal {
@@ -26,7 +26,7 @@ const initialState: InitialState = {
   dietaryRestrictions: [],
   discountAmount: 0,
   portionSize: "",
-  schedule: "",
+  schedule: new Date().toISOString(),
   deliveryCharge: 0,
 };
 
@@ -89,7 +89,7 @@ const cartSlice = createSlice({
     },
 
     setSchedule: (state, action) => {
-      state.schedule = action.payload;
+      state.schedule = action.payload || new Date().toISOString();
     },
 
     setPortionSize: (state, action) => {
@@ -109,29 +109,43 @@ const cartSlice = createSlice({
 
 export const orderedMealSelector = (state: RootState) => state.cart.meals;
 
-export const orderSelector = (state: RootState) => {
-  return {
-    meals: state.cart.meals.map((meal) => ({
-      meal: meal._id,
-      quantity: meal.quantity,
-      portionSize: state.cart.portionSize,
-    })),
-    shippingAddress: state.cart.shippingAddress,
-    paymentMethod: "Online",
-    foodCart: state.cart.foodCart,
-    dietaryPreferences: state.cart?.dietaryPreferences,
-    dietaryRestrictions: state.cart?.dietaryRestrictions,
-    schedule: state.cart?.schedule,
-  };
-};
+const selectCart = (state: RootState) => state.cart;
+
+export const orderSelector = createSelector([selectCart], (cart) => ({
+  meals: cart.meals.map((meal) => ({
+    meal: meal._id,
+    quantity: meal.quantity,
+    portionSize: cart.portionSize,
+  })),
+  shippingAddress: cart.shippingAddress,
+  paymentMethod: "Online",
+  foodCart: cart.foodCart,
+  dietaryPreferences: cart.dietaryPreferences,
+  dietaryRestrictions: cart.dietaryRestrictions,
+  schedule: cart.schedule,
+}));
 
 export const foodCartSelector = (state: RootState) => state.cart.foodCart;
 
 export const portionSelector = (state: RootState) => state.cart.portionSize;
 
-export const deliveryChargeSelector = (state: RootState) =>
-  state.cart.deliveryCharge;
-
+export const deliveryChargeSelector = (state: RootState) => {
+  if (
+    state.cart.shippingAddress &&
+    state.cart.shippingAddress === "Dhaka" &&
+    state.cart.meals.length > 0
+  ) {
+    return 60;
+  } else if (
+    state.cart.shippingAddress &&
+    state.cart.shippingAddress !== "Dhaka" &&
+    state.cart.meals.length > 0
+  ) {
+    return 100;
+  } else {
+    return 0;
+  }
+};
 // Payment calculation
 export const subtotalSelector = (state: RootState) => {
   return state.cart.meals.reduce((acc, meal) => {

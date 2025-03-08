@@ -1,4 +1,5 @@
 import BBContainer from "@/components/core/BBContainer/BBContainer";
+import Address from "@/components/modules/cart/Address";
 import CartMeals from "@/components/modules/cart/CartMeals";
 import PaymentDetails from "@/components/modules/cart/PaymentDetails";
 import MealBanner from "@/components/modules/Meal/Banner";
@@ -13,6 +14,7 @@ const CartPage = () => {
             <CartMeals />
           </div>
           <div className="flex-1 pt-10 lg:pt-0">
+            <Address />
             <PaymentDetails />
           </div>
         </div>
