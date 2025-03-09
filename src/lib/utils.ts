@@ -11,3 +11,11 @@ export const currencyFormatter = (value: number) => {
     currency: "BDT",
   }).format(value);
 };
+
+export const commaSeparatedValue = (text: string) => {
+  const result = text
+    .split(",")
+    .map((restriction: string) => restriction.trim())
+    .filter((restriction: string) => restriction !== "");
+  return result || [];
+};

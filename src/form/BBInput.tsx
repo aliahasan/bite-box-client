@@ -1,6 +1,7 @@
 import { FormControl, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 import { Controller, useFormContext } from "react-hook-form";
 
 type TInputProps = {
@@ -11,6 +12,7 @@ type TInputProps = {
   placeholder?: string;
   defaultValue?: string;
   required?: boolean;
+  className?: string;
 };
 
 const BBInput = ({
@@ -21,6 +23,7 @@ const BBInput = ({
   placeholder,
   defaultValue,
   required,
+  className,
 }: TInputProps) => {
   const { control } = useFormContext();
 
@@ -34,7 +37,7 @@ const BBInput = ({
           {label && (
             <Label
               htmlFor={name}
-              className="text-sm font-semibold text-my-light dark:text-my-dark"
+              className="text-sm font-semibold text-gray-700 dark:text-gray-300"
             >
               {label}
             </Label>
@@ -48,7 +51,10 @@ const BBInput = ({
               disabled={disabled}
               placeholder={placeholder}
               value={field.value || ""}
-              className="w-full px-4 py-4 text-gray-900 dark:text-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-300 transition-colors"
+              className={cn(
+                "w-full px-4 py-3 text-gray-900 dark:text-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1  transition-colors",
+                className
+              )}
             />
           </FormControl>
           {fieldState?.error?.message && (

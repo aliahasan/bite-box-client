@@ -33,7 +33,7 @@ const NavUser = () => {
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar className="cursor-pointer">
-          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarImage src={user?.image || "https://github.com/shadcn.png"} />
           <AvatarFallback>User</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>

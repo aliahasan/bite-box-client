@@ -12,13 +12,13 @@ import {
 } from "@/components/ui/sidebar";
 import { useUser } from "@/hooks/useUser";
 import {
-  Bot,
-  Home,
+  History,
+  LayoutDashboard,
   Map,
   PieChart,
-  Settings,
   SquareTerminal,
-  User2,
+  UserPen,
+  Utensils,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -30,60 +30,31 @@ const data = {
     {
       title: "Dashboard",
       url: "/customer/dashboard",
-      icon: SquareTerminal,
+      icon: LayoutDashboard,
       isActive: true,
     },
     {
-      title: "Shop",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Manage Products",
-          url: "/customer/products",
-        },
-        {
-          title: "Manage Categories",
-          url: "/user/shop/category",
-        },
-        {
-          title: "Manage Brands",
-          url: "/user/shop/brand",
-        },
-        {
-          title: "Manage Coupon",
-          url: "/user/shop/manage-coupon",
-        },
-      ],
+      title: "Order History",
+      url: "my-orders",
+      icon: History,
     },
-
     {
-      title: "Settings",
-      url: "#",
-      icon: Settings,
-      items: [
-        {
-          title: "Profile",
-          url: "/profile",
-        },
-      ],
+      title: "Profile",
+      url: "/customer/profile",
+      icon: UserPen,
     },
   ],
   navProvider: [
     {
       title: "Dashboard",
       url: "/provider/dashboard",
-      icon: SquareTerminal,
+      icon: LayoutDashboard,
     },
+
     {
-      title: "Food cart Profile",
+      title: "My Food Cart",
       url: "#",
-      icon: User2,
-    },
-    {
-      title: "Food Cart",
-      url: "#",
-      icon: Home,
+      icon: Utensils,
       items: [
         {
           title: "All Meal",
@@ -94,6 +65,16 @@ const data = {
           url: "/provider/add-meal",
         },
       ],
+    },
+    {
+      title: "All orders",
+      url: "cart-orders",
+      icon: History,
+    },
+    {
+      title: "Food Cart Profile",
+      url: "/provider/profile",
+      icon: UserPen,
     },
   ],
   navAdmin: [
