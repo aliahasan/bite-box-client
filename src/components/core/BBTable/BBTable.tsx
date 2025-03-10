@@ -13,50 +13,46 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+import NoData from "../NoData";
+
+interface DataTableProps<TData> {
+  columns: ColumnDef<TData>[];
+  data: TData[] | undefined;
 }
-const BBTable = <TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) => {
+
+const BBTable = <TData,>({ columns, data }: DataTableProps<TData>) => {
+  // Ensure `data` is always an array
+  const safeData = Array.isArray(data) ? data : [];
+
   const table = useReactTable({
-    data,
+    data: safeData,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
   return (
     <div className="my-5">
       <Table>
         <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
+          {table?.getHeaderGroups()?.map((headerGroup) => (
             <TableRow key={headerGroup.id} className="bg-gray-200">
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead
-                    className="font-bold text-gray-600"
-                    key={header.id}
-                  >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                );
-              })}
+              {headerGroup.headers.map((header) => (
+                <TableHead className="font-bold text-gray-600" key={header.id}>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                </TableHead>
+              ))}
             </TableRow>
           ))}
         </TableHeader>
         <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
+          {safeData.length > 0 ? (
+            table?.getRowModel()?.rows.map((row) => (
+              <TableRow key={row.id}>
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -66,8 +62,8 @@ const BBTable = <TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No Result Found
+              <TableCell colSpan={columns?.length} className="h-24 text-center">
+                <NoData message="Oops! No results found." />
               </TableCell>
             </TableRow>
           )}

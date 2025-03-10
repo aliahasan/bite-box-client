@@ -37,14 +37,23 @@ const NavUser = () => {
           <AvatarFallback>User</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent className="cursor-pointer">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
+
+        {/* Wrap DropdownMenuItem with Link */}
         <Link href={`${user?.role}/dashboard`}>
           <DropdownMenuItem>Dashboard</DropdownMenuItem>
         </Link>
-        {/* <DropdownMenuItem>My shop</DropdownMenuItem> */}
+
+        {user && user?.role === "provider" && (
+          <Link href="/provider/create-food-cart">
+            <DropdownMenuItem>Create food cart</DropdownMenuItem>
+          </Link>
+        )}
+
         <DropdownMenuSeparator />
+
         <DropdownMenuItem
           className="bg-red-500 cursor-pointer"
           onClick={handleLogout}

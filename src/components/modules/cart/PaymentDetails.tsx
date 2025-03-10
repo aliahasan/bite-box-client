@@ -35,13 +35,13 @@ const PaymentDetails = () => {
         router.push("/login");
         throw new Error("Please login first");
       }
-      if (!shippingAddress) {
-        throw new Error("Shipping address is missing");
-      }
+
       if (cartMeals.length < 1) {
         throw new Error("Cart is empty, what are you trying to order ??");
       }
-
+      if (!shippingAddress) {
+        throw new Error("Shipping address is missing");
+      }
       const res = await createOrder(order);
       console.log(res);
       if (res?.success) {
@@ -78,7 +78,7 @@ const PaymentDetails = () => {
       </>
       <Button
         onClick={handleOrder}
-        disabled={cartMeals.length === 0}
+        disabled={cartMeals.length === 0 || !shippingAddress}
         className="w-full text-sm bg-orange-500 hover:bg-orange-600 font-semibold py-5"
       >
         Order Now

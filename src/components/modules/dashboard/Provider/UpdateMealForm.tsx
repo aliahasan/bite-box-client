@@ -45,12 +45,13 @@ const UpdateMealForm = ({ meal }: { meal: IMeal }) => {
     formdata.append("image", imageFiles[0] as File);
     try {
       isLoading(true);
+      const toastId = toast.loading("updating...");
       const res = await updateMealInfo(meal._id, formdata);
       console.log(res);
       if (res?.success) {
-        toast.success(res?.message);
+        toast.success(res?.message, { id: toastId });
       } else {
-        toast.error(res?.message);
+        toast.error(res?.message, { id: toastId });
       }
       isLoading(false);
     } catch (error) {
@@ -63,7 +64,7 @@ const UpdateMealForm = ({ meal }: { meal: IMeal }) => {
     <Card className="max-w-7xl mx-auto bg-white shadow-none rounded-xl p-4">
       <CardHeader>
         <CardTitle className="text-xl font-semibold text-gray-800">
-          Add a New Meal
+          Update Meal Info
         </CardTitle>
       </CardHeader>
       <CardContent className="px-1">

@@ -7,9 +7,9 @@ import MealBanner from "@/components/modules/Meal/Banner";
 
 const CartPage = () => {
   return (
-    <div>
+    <>
+      <MealBanner title="Cart Page" path="Home-Cart" />
       <BBContainer>
-        <MealBanner title="Cart Page" path="Home-Cart" />
         <div className="flex flex-col lg:gap-x-8 lg:flex-row w-full py-10">
           <div className="w-full lg:w-[1000px]">
             <CartMeals />
@@ -21,7 +21,7 @@ const CartPage = () => {
           </div>
         </div>
       </BBContainer>
-    </div>
+    </>
   );
 };
 

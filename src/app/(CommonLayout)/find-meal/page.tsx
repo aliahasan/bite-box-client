@@ -19,8 +19,8 @@ const FindMealPage = async ({
   );
   return (
     <>
+      <MealBanner title="All-Meals" path="Home-Meal" />
       <BBContainer>
-        <MealBanner title="All-Meals" path="Home-Meal" />
         <AllMeals meals={meals} />
         <div className="my-10 flex items-center justify-center">
           <Pagination totalPage={meta?.totalPage} />

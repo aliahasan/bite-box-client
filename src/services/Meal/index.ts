@@ -1,6 +1,7 @@
 "use server";
 
 import { getValidToken } from "@/lib/verifyToken";
+import { revalidateTag } from "next/cache";
 
 const url = process.env.NEXT_PUBLIC_URL;
 
@@ -52,6 +53,7 @@ export const createMeal = async (data: FormData) => {
       },
       body: data,
     });
+    revalidateTag("MEAL");
     return res.json();
   } catch (error: any) {
     return Error(error);

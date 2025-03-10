@@ -4,16 +4,21 @@ import Pagination from "@/components/core/BBPagination/Pagination";
 import BBTable from "@/components/core/BBTable/BBTable";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { deleteMeal } from "@/services/Provider";
 import { IMeal, IMeta } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { Edit, Eye, Plus, Trash } from "lucide-react";
+import { Edit, Eye, Plus } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import DeleteConfirmDialog from "./DeleteConfirmDialog";
+import UpdateStock from "./UpdateStock";
 
 interface IMangeMealProps {
   meals: IMeal[];
   meta: IMeta;
 }
+
 const ManageAllMeal = ({ meals, meta }: IMangeMealProps) => {
   const router = useRouter();
 
@@ -21,8 +26,19 @@ const ManageAllMeal = ({ meals, meta }: IMangeMealProps) => {
     console.log("Viewing product:", product);
   };
 
-  const handleDelete = (mealId: string) => {
-    console.log("Deleting product with ID:", mealId);
+  const handleDelete = async (mealId: string) => {
+    const toastId = toast.loading("Deleting...");
+    try {
+      const res = await deleteMeal(mealId);
+      if (res?.success) {
+        toast.success(res?.message, { id: toastId });
+      } else {
+        toast.error(res?.message, { id: toastId });
+      }
+    } catch (error: any) {
+      toast.error(error?.message);
+      console.log(error);
+    }
   };
 
   const columns: ColumnDef<IMeal>[] = [
@@ -34,9 +50,9 @@ const ManageAllMeal = ({ meals, meta }: IMangeMealProps) => {
           <Image
             src={row.original.image}
             alt={row.original.name}
-            width={40}
-            height={40}
-            className="w-8 h-8 rounded-full"
+            width={100}
+            height={100}
+            className="object-cover rounded-lg"
           />
           <span className="truncate">{row.original.name}</span>
         </div>
@@ -46,9 +62,12 @@ const ManageAllMeal = ({ meals, meta }: IMangeMealProps) => {
       accessorKey: "available",
       header: "Availability",
       cell: ({ row }) => (
-        <Badge className="px-2 py-2 bg-green-500 rounded-lg text-white">
-          <span>{row.original.available ? "Available" : "Stock out"}</span>
-        </Badge>
+        <div className="flex items-center gap-x-2">
+          <Badge className=" bg-green-500 rounded-lg text-white">
+            <span>{row.original.available ? "Available" : "Stock out"}</span>
+          </Badge>
+          <UpdateStock mealId={row.original._id} />
+        </div>
       ),
     },
     {
@@ -89,33 +108,28 @@ const ManageAllMeal = ({ meals, meta }: IMangeMealProps) => {
             <Edit className="w-5 h-5" />
           </button>
 
-          <button
-            className="text-gray-500 hover:text-red-500"
-            title="Delete"
-            onClick={() => handleDelete(row.original._id)}
-          >
-            <Trash className="w-5 h-5" />
-          </button>
+          {/* Delete Confirmation Dialog */}
+          <DeleteConfirmDialog
+            mealId={row.original._id}
+            onDelete={handleDelete}
+          />
         </div>
       ),
     },
   ];
+
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold">Manage Products</h1>
+        <h1 className="text-xl font-bold">Manage Meals</h1>
         <div className="flex items-center gap-2">
           <Button onClick={() => router.push("/provider/add-meal")} size="sm">
-            Add Product <Plus />
+            Add Meal <Plus />
           </Button>
-          {/* <DiscountModal
-        selectedIds={selectedIds}
-        setSelectedIds={setSelectedIds}
-      /> */}
         </div>
       </div>
       <BBTable columns={columns} data={meals || []} />
-      <Pagination totalPage={meta.totalPage} />
+      <Pagination totalPage={meta?.totalPage} />
     </div>
   );
 };

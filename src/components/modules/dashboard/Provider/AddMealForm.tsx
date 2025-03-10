@@ -44,11 +44,12 @@ const AddMealForm = () => {
     formdata.append("image", imageFiles[0] as File);
     try {
       isLoading(true);
+      const toastId = toast.loading("Processing.....");
       const res = await createMeal(formdata);
       if (res?.success) {
-        toast.success(res?.message);
+        toast.success(res?.message, { id: toastId });
       } else {
-        toast.error(res?.message);
+        toast.error(res?.message, { id: toastId });
       }
       isLoading(false);
     } catch (error) {
@@ -73,6 +74,7 @@ const AddMealForm = () => {
               setImageFiles={setImageFiles}
               setImagePreview={setImagePreview}
               label="Upload Image"
+              required
             />
             <ImagePreview
               imagePreview={imagePreview}

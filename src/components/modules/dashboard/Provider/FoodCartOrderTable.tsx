@@ -13,7 +13,7 @@ import { updateOrder } from "@/services/Order";
 import { TFoodCartOrder } from "@/types/orderType";
 import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import OrderDetailsDialog from "./OrderDetailsDialog";
 
@@ -32,14 +32,12 @@ const FoodCartOrderTable = ({ orders }: IFoodCartProps) => {
   const [selectedOrder, setSelectedOrder] = useState<any>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const flattenedData = useMemo(() => {
-    return orders.flatMap((order) =>
-      order.meals.map((meal) => ({
-        ...order,
-        meal,
-      }))
-    );
-  }, [orders]);
+  const flattenedData = orders?.flatMap((order) =>
+    order.meals.map((meal) => ({
+      ...order,
+      meal,
+    }))
+  );
 
   const handleUpdate = async (orderId: string, option: string) => {
     const loading = toast.loading("Updating...");

@@ -5,8 +5,8 @@ type Role = keyof typeof roleBasedPrivateRotes;
 
 const authRoutes = ["/login", "/register"];
 const roleBasedPrivateRotes = {
-  customer: [/^\/customer/, /^\/create-foodCart/],
-  provider: [/^\/provider/],
+  customer: [/^\/customer/],
+  provider: [/^\/provider/, /^\/create-food-Cart/],
   admin: [/^\/admin/],
 };
 
@@ -41,7 +41,7 @@ export const middleware = async (request: NextRequest) => {
 export const config = {
   matcher: [
     "/login",
-    "/create-foodCart",
+    "/create-food-Cart",
     "/customer",
     "/customer/:page",
     "/provider",

@@ -1,4 +1,3 @@
-import BBContainer from "@/components/core/BBContainer/BBContainer";
 import MealsDetails from "@/components/modules/Meal/MealDetails.tsx";
 import { getAllMeals, getSingleMeal } from "@/services/Meal";
 import { IMeal } from "@/types";
@@ -19,12 +18,10 @@ const MealDetailsPage = async ({
   const { data: meal } = await getSingleMeal(mealId);
 
   return (
-    <div className="py-10">
-      <BBContainer>
-        <div>
-          <MealsDetails meal={meal} />
-        </div>
-      </BBContainer>
+    <div>
+      <div>
+        <MealsDetails meal={meal} />
+      </div>
     </div>
   );
 };

@@ -50,7 +50,12 @@ const data = {
       url: "/provider/dashboard",
       icon: LayoutDashboard,
     },
-
+    {
+      title: "Create food cart",
+      url: "/provider/create-food-cart",
+      icon: Utensils,
+      isActive: true,
+    },
     {
       title: "My Food Cart",
       url: "#",
@@ -84,6 +89,7 @@ const data = {
       icon: SquareTerminal,
       isActive: true,
     },
+
     {
       title: "Sales & Marketing",
       url: "#",
@@ -120,9 +126,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         {user?.role === "customer" ? (
-          <NavMain items={data.navCustomer} />
+          <NavMain items={data?.navCustomer} />
         ) : user?.role === "provider" ? (
-          <NavMain items={data.navProvider} />
+          <NavMain items={data?.navProvider} />
         ) : user?.role === "admin" ? (
           <NavMain items={data.navAdmin} />
         ) : null}

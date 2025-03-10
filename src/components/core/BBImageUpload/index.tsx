@@ -7,12 +7,14 @@ interface IImageUpload {
   className?: string;
   setImageFiles: React.Dispatch<React.SetStateAction<File[]>>;
   setImagePreview: React.Dispatch<React.SetStateAction<string[]>>;
+  required?: boolean;
 }
 const BBImageUpload = ({
   label = "upload images",
   className,
   setImageFiles,
   setImagePreview,
+  required,
 }: IImageUpload) => {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files![0];
@@ -36,6 +38,7 @@ const BBImageUpload = ({
         multiple
         className="hidden"
         onChange={handleImageChange}
+        required={required}
       />
       <label
         htmlFor="image-upload"
