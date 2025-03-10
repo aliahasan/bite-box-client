@@ -13,3 +13,10 @@ export type UserRole = {
   admin: "admin";
   provider: "provider";
 };
+
+export const updateOptions = [
+  "Pending",
+  "Processing",
+  "Completed",
+  "Cancelled",
+];

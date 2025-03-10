@@ -52,6 +52,7 @@ const UpdateProfileForm = ({
       const loading = toast.loading("Updating...");
       setIsLoading(true);
       const res = await updateProfile(formdata);
+      console.log(res);
       if (res?.success) {
         toast.success(res.message, { id: loading });
         setIsLoading(false);

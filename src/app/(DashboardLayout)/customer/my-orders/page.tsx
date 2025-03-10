@@ -1,7 +1,11 @@
-const CustomerOrdersPage = () => {
+import OrderTable from "@/components/modules/dashboard/Customer/OrderTable";
+import { getMyOrders } from "@/services/Order";
+
+const CustomerOrdersPage = async () => {
+  const { data } = await getMyOrders();
   return (
     <div>
-      <h1>This is Customers Orders Page</h1>
+      <OrderTable orders={data} />
     </div>
   );
 };

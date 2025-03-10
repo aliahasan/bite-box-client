@@ -17,8 +17,8 @@ export interface IUserProfile {
   phone: string | null;
   photo: string | null;
   role: string;
-  deliveryAddress: string | null;
-  dietaryPreferences: string | null;
+  deliveryAddress: string;
+  dietaryPreferences: string[];
   dietaryRestrictions: string[];
   preferredCuisine: string;
   hasFoodCart: boolean;
