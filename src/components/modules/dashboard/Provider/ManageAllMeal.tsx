@@ -83,9 +83,7 @@ const ManageAllMeal = ({ meals, meta }: IMangeMealProps) => {
             className="text-gray-500 hover:text-green-500"
             title="Edit"
             onClick={() =>
-              router.push(
-                `/user/shop/products/update-product/${row.original._id}`
-              )
+              router.push(`/provider/update-meal/${row.original._id}`)
             }
           >
             <Edit className="w-5 h-5" />

@@ -26,7 +26,7 @@ export interface IMeal {
   dietaryPreferences: string[];
   cuisine: string;
   ingredients: string[];
-  portionSize: "small" | "medium" | "large";
+  portionSize: string[]; // "small" | "medium" | "large";
   averageRating: number;
   ratingCount: number;
   createdAt: string;

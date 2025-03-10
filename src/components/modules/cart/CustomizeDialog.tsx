@@ -20,17 +20,18 @@ import {
   setSchedule,
 } from "@/redux/features/cartSlice";
 import { useAppDispatch } from "@/redux/hooks";
+import { IMeal } from "@/types";
 import { formatISO } from "date-fns";
 import { Edit } from "lucide-react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 
-const portionOptions = [
-  { label: "Small", value: "small" },
-  { label: "Medium + 20 ৳", value: "medium" },
-  { label: "Large + 40 ৳", value: "large" },
-];
+// const portionOptions = [
+//   { label: "Small", value: "small" },
+//   { label: "Medium + 20 ৳", value: "medium" },
+//   { label: "Large + 40 ৳", value: "large" },
+// ];
 
-const CustomizeDialog = () => {
+const CustomizeDialog = ({ meal }: { meal: IMeal }) => {
   const dispatch = useAppDispatch();
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
     const dietaryPreferences = data?.dietaryPreferences
@@ -91,11 +92,22 @@ const CustomizeDialog = () => {
               type="text"
               label="Dietary Restrictions comma (separated)"
             />
+
+            <small>
+              {" "}
+              <p className="text-green-600">
+                For medium + 20৳ , For large + 40৳
+              </p>
+            </small>
             <BBSelect
               name="portionSize"
-              options={portionOptions}
+              options={meal.portionSize.map((item) => ({
+                label: `${item}`,
+                value: item,
+              }))}
               label="Choose Portion"
             />
+
             <BBCalender name="schedule" label="Choose your Date " />
             <div className="mt-5">
               <DialogFooter>

@@ -90,7 +90,7 @@ const CartMealCard = ({ meal }: { meal: CartMeal }) => {
         </div>
       </div>
       <div className="absolute right-3 md:right-7">
-        <CustomizeDialog></CustomizeDialog>
+        <CustomizeDialog meal={meal}></CustomizeDialog>
       </div>
     </div>
   );

@@ -16,6 +16,7 @@ type TInputProps = {
   required?: boolean;
   options: Option[];
   isMulti?: boolean;
+  defaultValue?: string | string[];
 };
 
 const BBSelect = ({
@@ -26,8 +27,13 @@ const BBSelect = ({
   required,
   options,
   isMulti,
+  defaultValue,
 }: TInputProps) => {
   const { control } = useFormContext();
+
+  const processedDefaultValue = isMulti
+    ? options.filter((opt) => (defaultValue as string[])?.includes(opt.value))
+    : options.find((opt) => opt.value === defaultValue);
 
   return (
     <Controller
@@ -51,6 +57,7 @@ const BBSelect = ({
               name={name}
               instanceId={name}
               isMulti={isMulti}
+              defaultValue={processedDefaultValue}
               required={required}
               isDisabled={disabled}
               placeholder={placeholder || "Select an option"}
