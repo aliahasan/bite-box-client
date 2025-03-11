@@ -38,7 +38,7 @@ const MealsDetails = ({ meal }: { meal: Meal }) => {
               {meal?.name || "Meal Name"}
             </h1>
             <p className="text-2xl font-semibold text-gray-700">
-              {meal?.price?.toFixed(2) || "0.00"} ৳
+              ৳ {meal?.price?.toFixed(2) || "0.00"}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

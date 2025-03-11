@@ -83,7 +83,7 @@ const ManageAllMeal = ({ meals, meta }: IMangeMealProps) => {
     {
       accessorKey: "price",
       header: "Price",
-      cell: ({ row }) => <span>{row.original.price}</span>,
+      cell: ({ row }) => <span>৳{row.original.price}</span>,
     },
     {
       accessorKey: "action",

@@ -52,7 +52,7 @@ const MealCard = ({ meal }: { meal: IMeal }) => {
 
         <div className="flex justify-between items-center">
           <span className="text-lg font-semibold text-gray-800">
-            ${meal.price.toFixed(2)}
+            ৳{meal.price.toFixed(2)}
           </span>
           {meal.dietaryPreferences.slice(0, 1).map((tag, index) => (
             <Badge

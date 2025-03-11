@@ -95,12 +95,12 @@ const FoodCartOrderTable = ({ orders }: IFoodCartProps) => {
     {
       accessorKey: "meal.unitPrice",
       header: () => <div>Unit Price</div>,
-      cell: ({ row }) => <div>${row.original.meal.unitPrice}</div>,
+      cell: ({ row }) => <div>৳{row.original.meal.unitPrice}</div>,
     },
     {
       accessorKey: "price",
       header: () => <div>Total Price</div>,
-      cell: ({ row }) => <div>${row.original.finalAmount}</div>,
+      cell: ({ row }) => <div>৳{row.original.finalAmount}</div>,
     },
     {
       accessorKey: "paymentStatus",

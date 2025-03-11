@@ -97,7 +97,7 @@ const FilterSidebar = () => {
                   value={category}
                   id={category}
                 />
-                <Label htmlFor={category} className="font-medium text-black">
+                <Label htmlFor={category} className="font-medium text-gray-700">
                   {category}
                 </Label>
               </div>
@@ -117,7 +117,7 @@ const FilterSidebar = () => {
                   value={cuisine}
                   id={cuisine}
                 />
-                <Label htmlFor={cuisine} className="text-gray-500 font-light">
+                <Label htmlFor={cuisine} className="text-gray-700 font-medium ">
                   {cuisine}
                 </Label>
               </div>
