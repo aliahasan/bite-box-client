@@ -1,19 +1,12 @@
 import BBContainer from "@/components/core/BBContainer/BBContainer";
+import Reviews from "@/components/modules/FoodCart/Reviews";
 import MarkDownText from "@/components/shared/MarkDownText";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getSingleFoodCart } from "@/services/FoodCart";
-import {
-  Clock,
-  MapPin,
-  Phone,
-  Share2,
-  ShoppingBag,
-  Star,
-  User,
-} from "lucide-react";
+import { Clock, MapPin, Phone, Share2, ShoppingBag, User } from "lucide-react";
 import Image from "next/image";
 
 const FoodCartDetailsPage = async ({
@@ -22,8 +15,10 @@ const FoodCartDetailsPage = async ({
   params: Promise<{ foodCartId: string }>;
 }) => {
   const { foodCartId } = await params;
-  const { data: foodCart } = await getSingleFoodCart(foodCartId);
-
+  const { data: result } = await getSingleFoodCart(foodCartId);
+  const foodCart = result?.foodCart;
+  const reviews = result?.reviews;
+  console.log(reviews);
   return (
     <div className="min-h-screen ">
       {/* Hero Banner */}
@@ -94,7 +89,7 @@ const FoodCartDetailsPage = async ({
                     <div>
                       <p className="text-sm text-gray-500">Open Hours</p>
                       <p className="font-medium">
-                        {foodCart.availability.hours}
+                        {foodCart?.availability?.hours}
                       </p>
                     </div>
                   </div>
@@ -104,7 +99,7 @@ const FoodCartDetailsPage = async ({
                     </div>
                     <div>
                       <p className="text-sm text-gray-500">Location</p>
-                      <p className="font-medium">{foodCart.address}</p>
+                      <p className="font-medium">{foodCart?.address}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
@@ -113,7 +108,7 @@ const FoodCartDetailsPage = async ({
                     </div>
                     <div>
                       <p className="text-sm text-gray-500">Contact</p>
-                      <p className="font-medium">{foodCart.contactNumber}</p>
+                      <p className="font-medium">{foodCart?.contactNumber}</p>
                     </div>
                   </div>
                 </div>
@@ -121,52 +116,30 @@ const FoodCartDetailsPage = async ({
 
               {/* Tabs Section */}
               <Tabs defaultValue="about" className="w-full">
-                <TabsList className="grid grid-cols-3 mb-4">
+                <TabsList className="grid grid-cols-2 mb-4">
                   <TabsTrigger value="about">About</TabsTrigger>
-                  <TabsTrigger value="menu">Menu</TabsTrigger>
                   <TabsTrigger value="reviews">Reviews</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="about">
                   <Card>
                     <CardHeader>
-                      <CardTitle>About {foodCart.foodCartName}</CardTitle>
+                      <CardTitle>About {foodCart?.foodCartName}</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div className="prose max-w-none">
                         <MarkDownText text={foodCart?.description} />
                       </div>
-
-                      <div className="mt-6">
-                        <h3 className="text-lg font-medium mb-3">
-                          Available Days
-                        </h3>
-                        <div className="flex flex-wrap gap-2">
-                          {foodCart.availability.days
-                            .split("-")
-                            .map((day: string, index: number) => (
-                              <Badge
-                                key={index}
-                                variant="outline"
-                                className="px-3 py-1"
-                              >
-                                {day.trim()}
-                              </Badge>
-                            ))}
-                        </div>
-                      </div>
-
                       <div className="mt-6">
                         <h3 className="text-lg font-medium mb-3">Cuisines</h3>
                         <div className="flex flex-wrap gap-2">
-                          {foodCart.cuisines.map((cuisine: string) => (
+                          {foodCart?.cuisines?.map((cuisine: string) => (
                             <Badge key={cuisine} className="px-3 py-1">
                               {cuisine}
                             </Badge>
                           ))}
                         </div>
                       </div>
-
                       <div className="mt-6">
                         <h3 className="text-lg font-medium mb-3">
                           Opening Hours
@@ -175,10 +148,10 @@ const FoodCartDetailsPage = async ({
                           <Clock className="h-5 w-5 text-gray-500" />
                           <div>
                             <p className="font-medium">
-                              {foodCart.availability.days}
+                              {foodCart?.availability?.days}
                             </p>
                             <p className="text-gray-600">
-                              {foodCart.availability.hours}
+                              {foodCart?.availability?.hours}
                             </p>
                           </div>
                         </div>
@@ -186,47 +159,8 @@ const FoodCartDetailsPage = async ({
                     </CardContent>
                   </Card>
                 </TabsContent>
-
-                <TabsContent value="menu">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Food Menu</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-center py-10">
-                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
-                          <ShoppingBag className="h-8 w-8 text-gray-400" />
-                        </div>
-                        <h3 className="text-lg font-medium">
-                          Menu Coming Soon
-                        </h3>
-                        <p className="text-gray-500 mt-2">
-                          The food cart menu is being updated.
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-
-                <TabsContent value="reviews">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Customer Reviews</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-center py-10">
-                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
-                          <Star className="h-8 w-8 text-gray-400" />
-                        </div>
-                        <h3 className="text-lg font-medium">No Reviews Yet</h3>
-                        <p className="text-gray-500 mt-2">
-                          Be the first to review this food cart!
-                        </p>
-                        <Button className="mt-4">Write a Review</Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
+                {/* reviews section */}
+                <Reviews foodCart={foodCart} reviews={reviews} />
               </Tabs>
             </div>
 
