@@ -19,7 +19,7 @@ export const middleware = async (request: NextRequest) => {
     } else {
       return NextResponse.redirect(
         new URL(
-          `http://localhost:3000/login?redirectPath=${pathname}`,
+          `https://bitebox-meal.vercel.app/login?redirectPath=${pathname}`,
           request.url
         )
       );
@@ -35,7 +35,9 @@ export const middleware = async (request: NextRequest) => {
       return NextResponse.next();
     }
   }
-  return NextResponse.redirect(new URL("http://localhost:3000", request.url));
+  return NextResponse.redirect(
+    new URL("https://bitebox-meal.vercel.app", request.url)
+  );
 };
 
 export const config = {

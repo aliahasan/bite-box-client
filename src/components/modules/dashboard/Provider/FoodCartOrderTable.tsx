@@ -103,6 +103,21 @@ const FoodCartOrderTable = ({ orders }: IFoodCartProps) => {
       cell: ({ row }) => <div>${row.original.finalAmount}</div>,
     },
     {
+      accessorKey: "paymentStatus",
+      header: () => <div>Payment Status</div>,
+      cell: ({ row }) => (
+        <Badge
+          className={`${
+            row?.original?.paymentStatus === "Paid"
+              ? "bg-green-500"
+              : "bg-red-500"
+          }`}
+        >
+          <div>${row.original.paymentStatus}</div>
+        </Badge>
+      ),
+    },
+    {
       accessorKey: "orderStatus",
       header: () => <div>Order Status</div>,
       cell: ({ row }) => (

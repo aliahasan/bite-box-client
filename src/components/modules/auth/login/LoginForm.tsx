@@ -7,19 +7,16 @@ import { loginUser } from "@/services/authService";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { loginSchema } from "./LoginValidation";
 
 const LoginForm = () => {
   const { setIsLoading } = useUser();
-  const [loading, isLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      isLoading(true);
       const res = await loginUser(data);
       setIsLoading(true);
       if (res?.success) {
@@ -27,7 +24,6 @@ const LoginForm = () => {
         router.push("/");
       } else {
         toast.error(res?.message);
-        isLoading(false);
       }
     } catch (error: any) {
       console.log(error);
@@ -71,7 +67,7 @@ const LoginForm = () => {
             type="submit"
             className="w-full py-2 text-sm font-medium rounded-md bg-indigo-600 hover:bg-indigo-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 mt-4 cursor-pointer"
           >
-            {loading ? "Signing in..." : "Sign in"}
+            Sign in
           </Button>
         </BBForm>
         <p className=" text-sm text-gray-600 dark:text-gray-400">

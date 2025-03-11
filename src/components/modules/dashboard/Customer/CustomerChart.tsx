@@ -97,7 +97,7 @@ const CustomerChart = ({ data }: ChartProps) => {
         {/* Total Revenue */}
         <Card>
           <CardHeader>
-            <CardTitle>Total Revenue</CardTitle>
+            <CardTitle>Total Cost</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-4xl font-bold text-green-500">

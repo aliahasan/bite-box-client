@@ -13,81 +13,76 @@ import { registerSchema } from "./RegisterValidation";
 
 const CustomerForm = () => {
   const { setIsLoading } = useUser();
-  const [loading, isLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const userData = {
-      ...data,
-    };
+    setLoading(true);
+    setIsLoading(true);
     try {
-      isLoading(true);
-      const res = await registerUser(userData);
-      setIsLoading(true);
+      const res = await registerUser(data);
+
       if (res?.success) {
         toast.success(res?.message);
         router.push("/login");
       } else {
         toast.error(res?.message);
-        isLoading(false);
       }
     } catch (error: any) {
-      console.log(error);
+      toast.error("Something went wrong. Please try again.");
+      console.error(error);
+    } finally {
+      setLoading(false);
+      setIsLoading(false);
     }
   };
-  return (
-    <div>
-      <div className="max-w-md w-full space-y-8">
-        <BBForm onSubmit={handleSubmit} resolver={zodResolver(registerSchema)}>
-          <div className="rounded-md  space-y-4">
-            <div>
-              <BBInput
-                name="name"
-                type="text"
-                placeholder="name"
-                label="Name"
-                required
-              />
-            </div>
-            <div>
-              <BBInput
-                name="email"
-                type="email"
-                placeholder="email"
-                label="Email"
-                required
-              />
-            </div>
-            <div>
-              <BBInput
-                name="password"
-                type="password"
-                placeholder="Password"
-                label="Password"
-                required
-              />
-            </div>
-          </div>
 
-          <div>
-            <Button
-              disabled={loading}
-              type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white cursor-pointer"
-            >
-              {loading ? "Processing...." : "Register"}
-            </Button>
-          </div>
-          <div>
-            <p>
-              Already have an account ? Please{" "}
-              <Link className="text-blue-700" href="/login">
-                Login
-              </Link>
-            </p>
-          </div>
-        </BBForm>
-      </div>
+  return (
+    <div className="max-w-md w-full space-y-8">
+      <BBForm onSubmit={handleSubmit} resolver={zodResolver(registerSchema)}>
+        <div className="rounded-md space-y-4">
+          <BBInput
+            name="name"
+            type="text"
+            placeholder="Name"
+            label="Name"
+            required
+          />
+          <BBInput
+            name="email"
+            type="email"
+            placeholder="Email"
+            label="Email"
+            required
+          />
+          <BBInput
+            name="password"
+            type="password"
+            placeholder="Password"
+            label="Password"
+            required
+          />
+        </div>
+
+        <div>
+          <Button
+            disabled={loading}
+            type="submit"
+            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white cursor-pointer"
+          >
+            {loading ? "Processing..." : "Register"}
+          </Button>
+        </div>
+
+        <div>
+          <p>
+            Already have an account?{" "}
+            <Link className="text-blue-700" href="/login">
+              Login
+            </Link>
+          </p>
+        </div>
+      </BBForm>
     </div>
   );
 };
