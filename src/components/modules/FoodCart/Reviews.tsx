@@ -63,7 +63,7 @@ const Reviews = ({ foodCart, reviews }: ReviewsProps) => {
               <div className="space-y-6">
                 {reviews.map((rev) => (
                   <div
-                    key={rev._id}
+                    key={rev?._id}
                     className="flex items-start space-x-4 p-4 border rounded-lg shadow-sm"
                   >
                     {/* User Image */}
@@ -72,7 +72,7 @@ const Reviews = ({ foodCart, reviews }: ReviewsProps) => {
                         rev?.user?.photo ||
                         "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_640.png"
                       }
-                      alt={rev.user?.name}
+                      alt={rev?.user?.name}
                       width={50}
                       height={50}
                       className="rounded-full border"
@@ -80,7 +80,7 @@ const Reviews = ({ foodCart, reviews }: ReviewsProps) => {
                     {/* Review Content */}
                     <div className="flex-1">
                       <div className="flex justify-between items-center">
-                        <h4 className="font-semibold">{rev.user.name}</h4>
+                        <h4 className="font-semibold">{rev?.user?.name}</h4>
                         <span className="text-sm text-gray-500">
                           {formatDistanceToNow(new Date(rev.createdAt), {
                             addSuffix: true,

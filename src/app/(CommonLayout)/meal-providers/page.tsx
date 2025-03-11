@@ -4,6 +4,12 @@ import AllFoodCart from "@/components/modules/FoodCart/AllFoodCart";
 import MealBanner from "@/components/modules/Meal/Banner";
 import { getAllFoodCarts } from "@/services/FoodCart";
 import { IFoodCart } from "@/types";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "BiteBox | Meal Providers",
+  description: "This is Meal provider those are serving delicious food to you",
+};
 
 const MealProviders = async () => {
   const { data: foodCarts } = await getAllFoodCarts();

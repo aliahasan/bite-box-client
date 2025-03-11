@@ -3,6 +3,12 @@ import Pagination from "@/components/core/BBPagination/Pagination";
 import AllMeals from "@/components/modules/Meal";
 import MealBanner from "@/components/modules/Meal/Banner";
 import { getAllMeals } from "@/services/Meal";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Find Meals",
+  description: "This is Find Meal page where user can find their favorite meal",
+};
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 const FindMealPage = async ({

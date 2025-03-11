@@ -1,6 +1,7 @@
 "use server";
 
 import { getValidToken } from "@/lib/verifyToken";
+import { revalidateTag } from "next/cache";
 
 const url = process.env.NEXT_PUBLIC_URL;
 
@@ -14,6 +15,7 @@ export const createFoodCart = async (data: FormData): Promise<any> => {
       },
       body: data,
     });
+    revalidateTag("FOOCART");
     const result = await res.json();
     return result;
   } catch (error: any) {

@@ -18,7 +18,6 @@ const FoodCartDetailsPage = async ({
   const { data: result } = await getSingleFoodCart(foodCartId);
   const foodCart = result?.foodCart;
   const reviews = result?.reviews;
-  console.log(reviews);
   return (
     <div className="min-h-screen ">
       {/* Hero Banner */}
@@ -180,7 +179,7 @@ const FoodCartDetailsPage = async ({
                   <div className="mt-4 pt-4 border-t">
                     <h3 className="text-sm font-medium mb-2">Operating Days</h3>
                     <p className="text-gray-600">
-                      {foodCart.availability.days}
+                      {foodCart?.availability?.days}
                     </p>
 
                     <h3 className="text-sm font-medium mb-2 mt-4">
@@ -206,7 +205,7 @@ const FoodCartDetailsPage = async ({
                     </div>
                   </div>
                   <p className="text-gray-700 font-medium">
-                    {foodCart.address}
+                    {foodCart?.address}
                   </p>
                   <Button variant="outline" className="w-full mt-3">
                     Get Directions
@@ -222,12 +221,12 @@ const FoodCartDetailsPage = async ({
                 <CardContent className="space-y-3">
                   <div className="flex items-center gap-3">
                     <Phone className="h-5 w-5 text-gray-500" />
-                    <p className="text-gray-700">{foodCart.contactNumber}</p>
+                    <p className="text-gray-700">{foodCart?.contactNumber}</p>
                   </div>
                   <div className="flex items-center gap-3">
                     <User className="h-5 w-5 text-gray-500" />
                     <p className="text-gray-700">
-                      Owner ID: {foodCart.owner.substring(0, 8)}...
+                      Owner ID: {foodCart?.owner.substring(0, 8)}...
                     </p>
                   </div>
                   <div className="pt-3">

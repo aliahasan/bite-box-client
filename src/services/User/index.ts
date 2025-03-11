@@ -38,3 +38,19 @@ export const updateProfile = async (data: FormData) => {
     return Error(error);
   }
 };
+
+export const getCustomerMeta = async () => {
+  const token = await getValidToken();
+  try {
+    const res = await fetch(`${url}/customermeta`, {
+      method: "GET",
+      headers: {
+        Authorization: token,
+      },
+      cache: "no-store",
+    });
+    return await res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};

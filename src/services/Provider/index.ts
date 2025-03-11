@@ -84,3 +84,19 @@ export const deleteMeal = async (mealId: string) => {
   revalidateTag("MEAL");
   return res.json();
 };
+
+export const getProviderMetaData = async () => {
+  const token = await getValidToken();
+  try {
+    const res = await fetch(`${url}/providermeta`, {
+      method: "GET",
+      headers: {
+        Authorization: token,
+      },
+      cache: "no-store",
+    });
+    return await res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};

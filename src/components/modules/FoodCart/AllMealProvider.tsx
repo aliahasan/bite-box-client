@@ -1,6 +1,4 @@
-import { IFoodCart } from "@/types";
-
-const AllMealProvider = ({ foodCart }: { foodCart: IFoodCart }) => {
+const AllMealProvider = () => {
   return <div></div>;
 };
 

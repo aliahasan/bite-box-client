@@ -16,7 +16,7 @@ export const createReview = async (foodCartId: string, data: any) => {
       },
       body: JSON.stringify(data),
     });
-    revalidateTag("REVIEW");
+    revalidateTag("FOODCART");
     return await res.json();
   } catch (error: any) {
     return Error(error);
