@@ -17,13 +17,14 @@ const LoginForm = () => {
 
   const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
+      const toastId = toast.loading("login in...");
       const res = await loginUser(data);
       setIsLoading(true);
       if (res?.success) {
-        toast.success(res?.message);
+        toast.success(res?.message, { id: toastId });
         router.push("/");
       } else {
-        toast.error(res?.message);
+        toast.error(res?.message, { id: toastId });
       }
     } catch (error: any) {
       console.log(error);

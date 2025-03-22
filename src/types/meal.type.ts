@@ -19,6 +19,7 @@ export interface IMeal {
   };
   name: string;
   price: number;
+  offerPrice?: number;
   description: string;
   image: string;
   category: string;

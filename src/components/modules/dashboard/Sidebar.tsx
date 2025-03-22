@@ -62,6 +62,10 @@ const data = {
       icon: Utensils,
       items: [
         {
+          title: "Categories",
+          url: "/provider/category",
+        },
+        {
           title: "All Meal",
           url: "/provider/all-meal",
         },
@@ -71,6 +75,7 @@ const data = {
         },
       ],
     },
+
     {
       title: "All orders",
       url: "cart-orders",

@@ -4,14 +4,17 @@ import Pagination from "@/components/core/BBPagination/Pagination";
 import BBTable from "@/components/core/BBTable/BBTable";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { deleteMeal } from "@/services/Provider";
 import { IMeal, IMeta } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit, Eye, Plus } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
 import DeleteConfirmDialog from "./DeleteConfirmDialog";
+import DiscountModal from "./DiscountModal";
 import UpdateStock from "./UpdateStock";
 
 interface IMangeMealProps {
@@ -21,6 +24,8 @@ interface IMangeMealProps {
 
 const ManageAllMeal = ({ meals, meta }: IMangeMealProps) => {
   const router = useRouter();
+
+  const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
 
   const handleView = (product: IMeal) => {
     console.log("Viewing product:", product);
@@ -43,6 +48,37 @@ const ManageAllMeal = ({ meals, meta }: IMangeMealProps) => {
 
   const columns: ColumnDef<IMeal>[] = [
     {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => {
+            if (value) {
+              setSelectedIds((prev) => [...prev, row.original._id]);
+            } else {
+              setSelectedIds(
+                selectedIds.filter((id) => id !== row.original._id)
+              );
+            }
+            row.toggleSelected(!!value);
+          }}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
+    {
       accessorKey: "image",
       header: "Image",
       cell: ({ row }) => (
@@ -50,10 +86,12 @@ const ManageAllMeal = ({ meals, meta }: IMangeMealProps) => {
           <Image
             src={row.original.image}
             alt={row.original.name}
-            width={100}
-            height={100}
+            width={80}
+            height={80}
             className="object-cover rounded-lg"
+            style={{ width: "auto", height: "auto" }}
           />
+
           <span className="truncate">{row.original.name}</span>
         </div>
       ),
@@ -84,6 +122,11 @@ const ManageAllMeal = ({ meals, meta }: IMangeMealProps) => {
       accessorKey: "price",
       header: "Price",
       cell: ({ row }) => <span>৳{row.original.price}</span>,
+    },
+    {
+      accessorKey: "offerPrice",
+      header: "OfferPrice",
+      cell: ({ row }) => <span>৳{row.original?.offerPrice || 0}</span>,
     },
     {
       accessorKey: "action",
@@ -123,7 +166,15 @@ const ManageAllMeal = ({ meals, meta }: IMangeMealProps) => {
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold">Manage Meals</h1>
         <div className="flex items-center gap-2">
-          <Button onClick={() => router.push("/provider/add-meal")} size="sm">
+          <DiscountModal
+            selectedIds={selectedIds}
+            setSelectedIds={setSelectedIds}
+          />
+          <Button
+            className="bg-orange-500"
+            onClick={() => router.push("/provider/add-meal")}
+            size="sm"
+          >
             Add Meal <Plus />
           </Button>
         </div>

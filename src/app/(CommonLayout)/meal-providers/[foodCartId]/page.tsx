@@ -140,6 +140,12 @@ const FoodCartDetailsPage = async ({
                         </div>
                       </div>
                       <div className="mt-6">
+                        <h3 className="text-lg font-medium mb-3">Experience</h3>
+                        <div className="text-gray-500">
+                          {foodCart?.experience || 2} years
+                        </div>
+                      </div>
+                      <div className="mt-6">
                         <h3 className="text-lg font-medium mb-3">
                           Opening Hours
                         </h3>

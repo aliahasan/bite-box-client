@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Menu, ShoppingCart, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import logo from "../../assets/logo.png";
 import { Badge } from "../ui/badge";
@@ -16,7 +17,9 @@ import NavUser from "./NavUser";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useUser();
+  const pathname = usePathname();
   const cartData = useAppSelector(orderedMealSelector);
+
   const navLinks = [
     { label: "Home", href: "/" },
     { label: "Find Meals", href: "/find-meal" },
@@ -44,14 +47,19 @@ const Navbar = () => {
             <Link
               key={link.href}
               href={link.href}
-              className="hover:text-orange-500 transition"
+              className={`hover:text-orange-500 transition relative ${
+                pathname === link.href ? "text-orange-500 font-semibold" : ""
+              }`}
             >
               {link.label}
+              {pathname === link.href && (
+                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-orange-500"></span>
+              )}
             </Link>
           ))}
         </div>
 
-        {/* Right Side: Create Food Cart + NavUser + Mobile Menu */}
+        {/* Right Side: Cart + NavUser + Mobile Menu */}
         <div className="flex items-center space-x-4">
           <div className="relative cursor-pointer">
             <Link href="/cart">
@@ -64,9 +72,7 @@ const Navbar = () => {
             </Link>
           </div>
           {user ? (
-            <>
-              <NavUser />
-            </>
+            <NavUser />
           ) : (
             <Link href="/login">
               <Button
@@ -97,7 +103,9 @@ const Navbar = () => {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm hover:text-orange-400 transition"
+              className={`text-sm hover:text-orange-400 transition ${
+                pathname === link.href ? "text-orange-400 underline" : ""
+              }`}
               onClick={() => setIsOpen(false)}
             >
               {link.label}

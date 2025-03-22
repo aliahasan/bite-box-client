@@ -1,3 +1,4 @@
+export * from "./category.type";
 export * from "./foodcart.type";
 export * from "./meal.type";
 export * from "./meta.type";

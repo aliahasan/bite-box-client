@@ -105,6 +105,8 @@ const OrderDetailsDialog: React.FC<OrderDetailsDialogProps> = ({
 
           {/* Order Schedule */}
           <div>
+            <h3 className="text-lg mb-2">Delivery Address</h3>
+            <p className="text-gray-500">{order?.shippingAddress}</p>
             <h3 className="text-lg font-semibold text-gray-700 mb-2">
               Scheduled Date
             </h3>

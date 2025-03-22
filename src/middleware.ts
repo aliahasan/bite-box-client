@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCurrentUser } from "./services/authService";
 
+const url = process.env.NEXT_PUBLIC_URL as string;
+
 type Role = keyof typeof roleBasedPrivateRotes;
 
 const authRoutes = ["/login", "/register"];
@@ -18,10 +20,7 @@ export const middleware = async (request: NextRequest) => {
       return NextResponse.next();
     } else {
       return NextResponse.redirect(
-        new URL(
-          `https://bitebox-meal.vercel.app/login?redirectPath=${pathname}`,
-          request.url
-        )
+        new URL(`${url}/login?redirectPath=${pathname}`, request.url)
       );
     }
   }
@@ -35,9 +34,7 @@ export const middleware = async (request: NextRequest) => {
       return NextResponse.next();
     }
   }
-  return NextResponse.redirect(
-    new URL("https://bitebox-meal.vercel.app", request.url)
-  );
+  return NextResponse.redirect(new URL(`${url}`, request.url));
 };
 
 export const config = {

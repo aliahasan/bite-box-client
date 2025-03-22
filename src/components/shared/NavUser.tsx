@@ -41,13 +41,12 @@ const NavUser = () => {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
 
-        {/* Wrap DropdownMenuItem with Link */}
-        <Link href={`${user?.role}/dashboard`}>
+        <Link href={`/${user?.role}/dashboard`} className="cursor-pointer">
           <DropdownMenuItem>Dashboard</DropdownMenuItem>
         </Link>
 
         {user && user?.role === "provider" && (
-          <Link href="/provider/create-food-cart">
+          <Link href="/provider/create-food-cart" className="cursor-pointer">
             <DropdownMenuItem>Create food cart</DropdownMenuItem>
           </Link>
         )}

@@ -20,6 +20,7 @@ const AddFoodCartForm = () => {
   const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
     const updatedFormData = {
       ...data,
+      experience: Number(data?.experience),
       cuisines: data?.cuisines
         .split(",")
         .map((item: string) => item.trim())
@@ -100,6 +101,13 @@ const AddFoodCartForm = () => {
                   required
                 />
                 <BBInput
+                  name="experience"
+                  type="number"
+                  placeholder="Experience"
+                  label="Experience (number)"
+                  required
+                />
+                <BBInput
                   name="cuisines"
                   type="text"
                   placeholder="Cuisines (comma separated)"
@@ -124,7 +132,11 @@ const AddFoodCartForm = () => {
 
               {/* Editor at the bottom - Full Width */}
               <div className="mt-6 w-full">
-                <BBEditor name="description" required />
+                <BBEditor
+                  name="description"
+                  required
+                  placeholder="Description"
+                />
               </div>
 
               {/* Submit Button */}

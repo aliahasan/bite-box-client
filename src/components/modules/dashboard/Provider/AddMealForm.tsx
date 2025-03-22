@@ -8,8 +8,11 @@ import BBEditor from "@/form/BBEditor";
 import BBForm from "@/form/BBForm";
 import BBInput from "@/form/BBInput";
 import BBSelect from "@/form/BBSelect";
+import BBShadCnSelect from "@/form/BBShadcnSelect";
+import { getAllMealCategories } from "@/services/category";
 import { createMeal } from "@/services/Meal";
-import { useState } from "react";
+import { ICategory } from "@/types";
+import { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -20,10 +23,24 @@ const portionSizes = [
 ];
 
 const AddMealForm = () => {
-  const [imageFiles, setImageFiles] = useState<File[] | []>([]);
-  const [imagePreview, setImagePreview] = useState<string[] | []>([]);
-  const [loading, isLoading] = useState(false);
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [imagePreview, setImagePreview] = useState<string[]>([]);
+  const [categories, setCategories] = useState<ICategory[]>([]);
+  const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const fetchCategory = async () => {
+      try {
+        const [categoriesData] = await Promise.all([getAllMealCategories()]);
+        setCategories(categoriesData?.data || []);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    fetchCategory();
+  }, []);
+
+  //   for  submit handler
   const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
     const updatedFormData = {
       ...data,
@@ -39,41 +56,42 @@ const AddMealForm = () => {
         .filter((item: string) => item !== ""),
     };
 
-    const formdata = new FormData();
-    formdata.append("data", JSON.stringify(updatedFormData));
-    formdata.append("image", imageFiles[0] as File);
+    const formData = new FormData();
+    formData.append("data", JSON.stringify(updatedFormData));
+    formData.append("image", imageFiles[0] as File);
+
     try {
-      isLoading(true);
+      setLoading(true);
       const toastId = toast.loading("Processing.....");
-      const res = await createMeal(formdata);
+      const res = await createMeal(formData);
       if (res?.success) {
         toast.success(res?.message, { id: toastId });
       } else {
         toast.error(res?.message, { id: toastId });
       }
-      isLoading(false);
     } catch (error) {
-      console.log(error);
-      isLoading(false);
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <Card className="max-w-5xl mx-auto bg-white shadow-none rounded-xl p-4">
+    <Card className="max-w-5xl mx-auto bg-white shadow-sm rounded-xl pt-6">
       <CardHeader>
         <CardTitle className="text-xl font-semibold text-gray-800">
           Add a New Meal
         </CardTitle>
       </CardHeader>
-      <CardContent className="px-1">
-        <div className="flex flex-col items-start gap-6">
+      <CardContent>
+        <BBForm onSubmit={handleSubmit}>
           {/* Image Upload Section */}
-          <div className="flex gap-x-4">
+          <div className="flex flex-col md:flex-row gap-6 mb-6">
             <BBImageUpload
               className="flex items-start"
               setImageFiles={setImageFiles}
               setImagePreview={setImagePreview}
-              label="Upload Image"
+              label="Upload single Image"
               required
             />
             <ImagePreview
@@ -83,87 +101,92 @@ const AddMealForm = () => {
             />
           </div>
 
-          {/* Form Section */}
-          <div className="w-full">
-            <BBForm onSubmit={handleSubmit}>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <BBInput
-                  name="name"
-                  type="text"
-                  placeholder="Meal Name"
-                  label="Meal Name"
-                  required
-                />
-                <BBInput
-                  name="price"
-                  type="number"
-                  placeholder="Price"
-                  label="Price ($)"
-                  required
-                />
-                <BBInput
-                  name="category"
-                  type="text"
-                  placeholder="Category"
-                  label="Category"
-                  required
-                />
-                <BBInput
-                  name="cuisine"
-                  type="text"
-                  placeholder="Cuisine"
-                  label="Cuisine Type"
-                  required
-                />
-                <BBSelect
-                  options={portionSizes}
-                  name="portionSize"
-                  placeholder="Portion Sizes"
-                  label="Portion Sizes"
-                  isMulti
-                  required
-                />
-                <BBInput
-                  name="dietaryPreferences"
-                  type="text"
-                  placeholder="Dietary Preferences"
-                  label="Dietary Preferences (comma separated )"
-                  required
-                />
-                <BBInput
-                  name="ingredients"
-                  type="text"
-                  placeholder="Ingredients"
-                  label="Ingredients (comma separated)"
-                  required
-                />
-                <BBInput
-                  name="averageRating"
-                  type="number"
-                  placeholder="Ratings"
-                  label="Average Rating (number)"
-                  required
-                />
-              </div>
+          {/* Form Fields Section */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <BBInput
+              name="name"
+              type="text"
+              placeholder="Meal Name"
+              label="Meal Name"
+              required
+            />
 
-              {/* Editor at the bottom - Full Width */}
-              <div className="mt-6 w-full">
-                <BBEditor name="description" required />
-              </div>
+            <BBShadCnSelect
+              name="category"
+              placeholder="Select Category"
+              label="Category"
+              options={categories?.map((category) => ({
+                value: category._id,
+                label: category.name,
+              }))}
+            />
 
-              {/* Submit Button */}
-              <div className="mt-6 flex justify-end">
-                <Button
-                  disabled={loading}
-                  type="submit"
-                  className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 text-sm "
-                >
-                  {loading ? "Processing" : "Add meal"}
-                </Button>
-              </div>
-            </BBForm>
+            <BBInput
+              name="price"
+              type="number"
+              placeholder="Price"
+              label="Price (৳)"
+              required
+            />
+
+            <BBInput
+              name="cuisine"
+              type="text"
+              placeholder="Cuisine"
+              label="Cuisine Type"
+              required
+            />
+
+            <BBSelect
+              options={portionSizes}
+              name="portionSize"
+              placeholder="Portion Sizes"
+              label="Portion Sizes"
+              isMulti
+              required
+            />
+
+            <BBInput
+              name="dietaryPreferences"
+              type="text"
+              placeholder="Dietary Preferences"
+              label="Dietary Preferences (comma separated)"
+              required
+            />
+
+            <BBInput
+              name="ingredients"
+              type="text"
+              placeholder="Ingredients"
+              label="Ingredients (comma separated)"
+              required
+            />
+
+            <BBInput
+              name="averageRating"
+              type="number"
+              placeholder="Ratings"
+              label="Average Rating (number)"
+              required
+            />
           </div>
-        </div>
+
+          {/* Editor - Full Width */}
+          <div className="mt-6">
+            <BBEditor name="description" required />
+          </div>
+
+          {/* Submit Button */}
+          <div className="mt-6 flex justify-end">
+            <Button
+              disabled={loading}
+              type="submit"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 text-sm"
+            >
+              {loading ? "Processing..." : "Add Meal"}
+            </Button>
+          </div>
+        </BBForm>
       </CardContent>
     </Card>
   );

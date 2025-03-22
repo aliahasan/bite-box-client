@@ -36,7 +36,7 @@ const BBEditor = ({ name, label, placeholder, defaultValue }: TEditorProps) => {
                 onChange={(value) => field.onChange(value)}
                 id={name}
                 preview="edit"
-                height={300}
+                height={350}
                 style={{ borderRadius: 20, overflow: "hidden" }}
                 textareaProps={{
                   placeholder: placeholder || "Briefly describe",
