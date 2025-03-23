@@ -92,7 +92,6 @@ const AddMealForm = () => {
               setImageFiles={setImageFiles}
               setImagePreview={setImagePreview}
               label="Upload single Image"
-              required
             />
             <ImagePreview
               imagePreview={imagePreview}

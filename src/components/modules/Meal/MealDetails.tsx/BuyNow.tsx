@@ -16,7 +16,7 @@ const BuyNow = ({ meal }: any) => {
       <Button
         onClick={handleBuyNow}
         disabled={!meal?.available}
-        className="bg-rose-500 hover:bg-amber-600"
+        className="bg-orange-500 hover:bg-orange-500 cursor-pointer w-full md:w-1/2"
       >
         Buy Now
       </Button>

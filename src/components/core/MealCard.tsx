@@ -41,19 +41,32 @@ const MealCard = ({ meal }: { meal: IMeal }) => {
       </CardHeader>
       <CardContent className="flex flex-col gap-3 p-1">
         <div className="flex items-center justify-between">
-          <p className="text-sm text-gray-600 font-bold">{meal?.category}</p>
+          <p className="text-sm text-gray-600 font-bold">
+            {meal?.category?.name}
+          </p>
           <div className="flex items-center gap-1 text-yellow-500">
             <Star size={16} fill="currentColor" />
             <span className="text-sm font-medium">
-              {meal?.averageRating.toFixed(1)}
+              {meal?.averageRating?.toFixed(1)}
             </span>
           </div>
         </div>
 
         <div className="flex justify-between items-center">
-          <span className="text-lg font-semibold text-gray-800">
-            ৳{meal.price.toFixed(2)}
-          </span>
+          <p className="text-sm text-gray-600">
+            {meal?.offerPrice ? (
+              <>
+                <span className="font-semibold mr-2 text-orange-400">
+                  ৳ {meal?.offerPrice.toFixed(2)}
+                </span>
+                <del className="font-semibold text-xs">
+                  ৳ {meal?.price.toFixed(2)}
+                </del>
+              </>
+            ) : (
+              <span className="font-semibold"> ৳ {meal?.price.toFixed(2)}</span>
+            )}
+          </p>
           {meal?.dietaryPreferences.slice(0, 1).map((tag, index) => (
             <Badge
               key={index}

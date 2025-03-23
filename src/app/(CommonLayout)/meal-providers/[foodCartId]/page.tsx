@@ -2,11 +2,10 @@ import BBContainer from "@/components/core/BBContainer/BBContainer";
 import Reviews from "@/components/modules/FoodCart/Reviews";
 import MarkDownText from "@/components/shared/MarkDownText";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getSingleFoodCart } from "@/services/FoodCart";
-import { Clock, MapPin, Phone, Share2, ShoppingBag, User } from "lucide-react";
+import { Clock, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 
 const FoodCartDetailsPage = async ({
@@ -50,22 +49,8 @@ const FoodCartDetailsPage = async ({
                   </Badge>
                 </div>
                 <h1 className="text-2xl md:text-4xl font-bold text-white">
-                  {foodCart.foodCartName}
+                  {foodCart?.foodCartName}
                 </h1>
-              </div>
-              <div className="flex gap-2">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="bg-white/20 backdrop-blur-sm border-white/30 text-white hover:bg-white/30"
-                >
-                  <Share2 className="w-4 h-4 mr-2" />
-                  Share
-                </Button>
-                <Button size="sm" className="bg-primary hover:bg-primary/90">
-                  <ShoppingBag className="w-4 h-4 mr-2" />
-                  Order Now
-                </Button>
               </div>
             </div>
           </BBContainer>
@@ -169,35 +154,8 @@ const FoodCartDetailsPage = async ({
               </Tabs>
             </div>
 
-            {/* Right Column - Additional Info */}
+            {/* Right Column  */}
             <div className="space-y-6">
-              {/* Action Card */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Order Information</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <Button className="w-full">Place an Order</Button>
-                  <Button variant="outline" className="w-full">
-                    View Menu
-                  </Button>
-
-                  <div className="mt-4 pt-4 border-t">
-                    <h3 className="text-sm font-medium mb-2">Operating Days</h3>
-                    <p className="text-gray-600">
-                      {foodCart?.availability?.days}
-                    </p>
-
-                    <h3 className="text-sm font-medium mb-2 mt-4">
-                      Operating Hours
-                    </h3>
-                    <p className="text-gray-600">
-                      {foodCart?.availability?.hours}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-
               {/* Location Card */}
               <Card>
                 <CardHeader>
@@ -213,9 +171,6 @@ const FoodCartDetailsPage = async ({
                   <p className="text-gray-700 font-medium">
                     {foodCart?.address}
                   </p>
-                  <Button variant="outline" className="w-full mt-3">
-                    Get Directions
-                  </Button>
                 </CardContent>
               </Card>
 
@@ -229,12 +184,7 @@ const FoodCartDetailsPage = async ({
                     <Phone className="h-5 w-5 text-gray-500" />
                     <p className="text-gray-700">{foodCart?.contactNumber}</p>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <User className="h-5 w-5 text-gray-500" />
-                    <p className="text-gray-700">
-                      Owner ID: {foodCart?.owner.substring(0, 8)}...
-                    </p>
-                  </div>
+
                   <div className="pt-3">
                     <p className="text-xs text-gray-500">
                       Food cart active since{" "}

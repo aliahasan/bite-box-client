@@ -10,26 +10,29 @@ export interface IMeal {
     cuisines: string[];
     availability: {
       days: string;
-      hour: string;
+      hours: string;
     };
     isActive: boolean;
     createdAt: string;
     updatedAt: string;
-    __v: number;
   };
   name: string;
   price: number;
-  offerPrice?: number;
+  offerPrice?: number | null;
   description: string;
   image: string;
-  category: string;
+  category: {
+    _id: string;
+    name: string;
+  };
   available: boolean;
   dietaryPreferences: string[];
   cuisine: string;
   ingredients: string[];
-  portionSize: string[]; // "small" | "medium" | "large";
+  portionSize: string[];
   averageRating: number;
   ratingCount: number;
   createdAt: string;
   updatedAt: string;
+  relatedMeals?: IMeal[];
 }

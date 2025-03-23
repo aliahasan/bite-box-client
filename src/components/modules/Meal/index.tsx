@@ -18,15 +18,16 @@ const AllMeals = ({ meals }: { meals: IMeal[] }) => {
 
         {/* Meals Grid */}
         <div className="w-full md:w-3/4 flex-grow">
-          {meals.length > 0 ? (
+          {meals?.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {meals.map((meal, idx) => (
+              {meals?.map((meal, idx) => (
                 <MealCard meal={meal} key={idx} />
               ))}
             </div>
           ) : (
             <div className="text-center text-gray-500 text-lg font-semibold">
-              No meals available at the moment. Please check back later!
+              No meals found . according to your search please clear filter and
+              try again!
             </div>
           )}
         </div>

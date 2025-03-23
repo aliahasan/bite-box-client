@@ -14,7 +14,7 @@ const SectionOne = () => {
 
       {/* Content */}
       <div className="relative z-10 text-white max-w-2xl">
-        <h1 className="text-4xl md:text-6xl font-bold">
+        <h1 className="text-3xl md:text-5xl font-bold">
           Your Personalized{" "}
           <span className="text-orange-500">Meal, Delivered!</span>
         </h1>
