@@ -62,13 +62,14 @@ const PaymentDetails = () => {
             <p className="text-gray-500 ">Subtotal</p>
             <p className="font-semibold">{currencyFormatter(subTotal)}</p>
           </div>
-          <div className="flex justify-between">
-            <p className="text-gray-500 ">Discount</p>
-            <p className="font-semibold">{currencyFormatter(0)}</p>
-          </div>
+
           <div className="flex justify-between">
             <p className="text-gray-500 ">Delivery charge</p>
             <p className="font-semibold">{currencyFormatter(deliveryCost)}</p>
+          </div>
+          <div className="flex justify-between">
+            <p className="text-gray-500 ">Discount</p>
+            <p className="font-semibold">{currencyFormatter(0)}</p>
           </div>
         </div>
         <div className="flex justify-between mt-10 mb-5">

@@ -38,7 +38,7 @@ const CustomerForm = () => {
   };
 
   return (
-    <div className="max-w-md w-full space-y-8">
+    <div className="max-w-md w-full">
       <BBForm onSubmit={handleSubmit} resolver={zodResolver(registerSchema)}>
         <div className="rounded-md space-y-4">
           <BBInput
@@ -75,9 +75,12 @@ const CustomerForm = () => {
         </div>
 
         <div>
-          <p>
-            Already have an account?{" "}
-            <Link className="text-blue-700" href="/login">
+          <p className="px-8 text-center text-sm text-muted-foreground">
+            Already have an account? Please{" "}
+            <Link
+              href="/login"
+              className="underline underline-offset-4 text-blue-600"
+            >
               Login
             </Link>
           </p>

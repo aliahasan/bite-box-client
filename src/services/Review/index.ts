@@ -5,6 +5,7 @@ import { revalidateTag } from "next/cache";
 
 const url = process.env.NEXT_PUBLIC_URL;
 
+// create meal provide review
 export const createReview = async (foodCartId: string, data: any) => {
   const token = await getValidToken();
   try {
@@ -18,6 +19,20 @@ export const createReview = async (foodCartId: string, data: any) => {
     });
     revalidateTag("FOODCART");
     return await res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
+export const getAllReviews = async () => {
+  try {
+    const res = await fetch(`${url}/review`, {
+      next: {
+        revalidate: 30,
+      },
+    });
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error);
   }

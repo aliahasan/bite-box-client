@@ -5,9 +5,7 @@ const CustomerDashboard = async () => {
   const { data } = await getCustomerMeta();
   return (
     <div>
-      <h1 className="text-3xl font-bold text-center text-white mb-6">
-        Customer Dashboard
-      </h1>
+      <h1 className="text-3xl font-bold  mb-6">Customer Dashboard</h1>
       <div>
         {data && data.orderBreakdown && data.totalOrders !== undefined ? (
           <CustomerChart data={data} />

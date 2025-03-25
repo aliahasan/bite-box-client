@@ -1,3 +1,4 @@
+import BBContainer from "@/components/core/BBContainer/BBContainer";
 import { AppSidebar } from "@/components/modules/dashboard/Sidebar";
 import {
   SidebarInset,
@@ -19,7 +20,7 @@ export default function DashboardLayout({
             <SidebarTrigger className="-ml-1" />
           </div>
         </header>
-        <div className="p-4 pt-0 min-h-screen">{children}</div>
+        <BBContainer className="pt-0 min-h-screen">{children}</BBContainer>
       </SidebarInset>
     </SidebarProvider>
   );

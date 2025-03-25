@@ -103,13 +103,6 @@ const UpdateMealForm = ({ meal }: { meal: IMeal }) => {
                   defaultValue={meal?.price as any}
                 />
                 <BBInput
-                  name="category"
-                  type="text"
-                  placeholder="Category"
-                  label="Category"
-                  defaultValue={meal?.category}
-                />
-                <BBInput
                   name="cuisine"
                   type="text"
                   placeholder="Cuisine"

@@ -3,13 +3,10 @@ import { getProviderMetaData } from "@/services/Provider";
 
 const ProviderDashboard = async () => {
   const { data } = await getProviderMetaData();
-  console.log(data);
 
   return (
-    <div className="min-h-screen  p-6">
-      <h1 className="text-3xl font-bold text-center text-white mb-6">
-        Meal Provider Dashboard
-      </h1>
+    <div className="min-h-screen">
+      <h1 className="text-3xl font-bold mb-6">Meal Provider Dashboard</h1>
       <div>
         {data && data.orderBreakdown && data.totalOrders !== undefined ? (
           <ProviderChart data={data} />

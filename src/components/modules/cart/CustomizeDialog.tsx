@@ -23,16 +23,13 @@ import { useAppDispatch } from "@/redux/hooks";
 import { IMeal } from "@/types";
 import { formatISO } from "date-fns";
 import { Edit } from "lucide-react";
+import { useState } from "react"; // Import useState for dialog control
 import { FieldValues, SubmitHandler } from "react-hook-form";
-
-// const portionOptions = [
-//   { label: "Small", value: "small" },
-//   { label: "Medium + 20 ৳", value: "medium" },
-//   { label: "Large + 40 ৳", value: "large" },
-// ];
 
 const CustomizeDialog = ({ meal }: { meal: IMeal }) => {
   const dispatch = useAppDispatch();
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // Manage dialog open/close
+
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
     const dietaryPreferences = data?.dietaryPreferences
       ? data.dietaryPreferences
@@ -62,10 +59,15 @@ const CustomizeDialog = ({ meal }: { meal: IMeal }) => {
     if (schedule) {
       dispatch(setSchedule(schedule));
     }
+
+    // Close the dialog after form submission
+    setIsDialogOpen(false);
   };
 
   return (
-    <Dialog>
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      {" "}
+      {/* Control dialog open state */}
       <DialogTrigger asChild>
         <Button variant="outline">
           <span>
@@ -94,7 +96,6 @@ const CustomizeDialog = ({ meal }: { meal: IMeal }) => {
             />
 
             <small>
-              {" "}
               <p className="text-green-600">
                 For medium + 20৳ , For large + 40৳
               </p>

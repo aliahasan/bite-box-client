@@ -1,78 +1,49 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Search } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-const formSchema = z.object({
-  searchQuery: z.string().min(1, "Restaurant name is required"),
-});
-
-export type SearchForm = z.infer<typeof formSchema>;
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const SearchBar = () => {
-  // Initialize useForm correctly
-  const form = useForm<SearchForm>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      searchQuery: "",
-    },
-  });
+  const router = useRouter();
+  const pathName = "/find-meal";
+  const [search, setSearch] = useState("");
 
-  // Submit handler function
-  const onSubmit = (data: SearchForm) => {
-    console.log("Search Query:", data.searchQuery);
-    // Handle search logic here
+  // Handle input change
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
+  // Handle form submission
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const trimmedSearch = search.trim();
+    if (trimmedSearch) {
+      router.push(`${pathName}?search=${encodeURIComponent(trimmedSearch)}`);
+    }
   };
 
   return (
-    <div>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex items-center gap-3 justify-between flex-row border-2 rounded-full p-3"
-        >
-          <Search
-            strokeWidth={2.5}
-            size={30}
-            className="ml-1 text-orange-500 hidden md:block"
+    <div className="w-full">
+      <form onSubmit={handleSubmit}>
+        <div className="flex w-full items-center gap-2">
+          <Input
+            name="search"
+            type="text"
+            value={search}
+            onChange={handleChange}
+            placeholder="Search meal"
+            className="flex-1 w-full px-4 py-4 rounded-full border border-gray-300"
           />
-          <FormField
-            control={form.control}
-            name="searchQuery"
-            render={({ field }) => (
-              <FormItem className="flex-1">
-                <FormControl>
-                  <Input
-                    {...field}
-                    className="border-none shadow-none text-xl focus-visible:ring-0"
-                    placeholder="Search"
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-
-          {/* Reset button to clear the input field */}
           <Button
-            type="button"
-            variant="outline"
-            className="rounded-full"
-            onClick={() => form.reset()} // Reset form
+            type="submit"
+            className="px-6 py-2 rounded-full bg-orange-500 text-white cursor-pointer"
           >
-            Reset
+            Submit
           </Button>
-
-          {/* Submit button to trigger the search */}
-          <Button type="submit" className="rounded-full bg-orange-500">
-            Search
-          </Button>
-        </form>
-      </Form>
+        </div>
+      </form>
     </div>
   );
 };

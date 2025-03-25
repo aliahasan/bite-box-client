@@ -27,7 +27,7 @@ const CartMealCard = ({ meal }: { meal: CartMeal }) => {
     dispatch(removeMeal(id));
   };
   return (
-    <div className="bg-[#F9FAFB] rounded-lg flex md:p-5 gap-3 md:gap-5 ">
+    <div className="bg-[#F9FAFB] rounded-lg flex md:p-5 gap-3 md:gap-5 relative">
       <div className="h-full w-32 rounded-md overflow-hidden">
         <Image
           src={meal?.image}
@@ -41,9 +41,9 @@ const CartMealCard = ({ meal }: { meal: CartMeal }) => {
         <h1 className="text-md md:text-xl font-semibold">{meal?.name}</h1>
         <div className="flex gap-5 my-2 text-sm md:text-lg">
           <p>
-            <span className="text-gray-500">Stock Availability : </span>
+            <span className="text-gray-500">Stock availability : </span>
             <span className="font-semibold">
-              {meal?.available ? "Available" : "not available"}
+              {meal?.available ? "available" : "not available"}
             </span>
           </p>
         </div>
@@ -53,12 +53,13 @@ const CartMealCard = ({ meal }: { meal: CartMeal }) => {
             <p>
               <span className="text-gray-500"> Price : </span>
               <span className="font-medium text-[12px] md:text-sm">
-                {" "}
-                {currencyFormatter(meal?.price)}
+                {meal?.offerPrice
+                  ? currencyFormatter(meal?.offerPrice)
+                  : currencyFormatter(meal?.price)}
               </span>
             </p>
             <p>
-              <span className="text-gray-500 "> Portion Size : </span>
+              <span className="text-gray-500 "> Portion size : </span>
               <span>{selectedPotion}</span>
             </p>
           </div>

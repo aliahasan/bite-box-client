@@ -63,7 +63,7 @@ const ProviderChart = ({ data }: ChartProps) => {
     ],
   };
 
-  // Chart options for customization
+  // Chart options
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -83,7 +83,6 @@ const ProviderChart = ({ data }: ChartProps) => {
     <div>
       {/* Dashboard cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* Total Orders */}
         <Card>
           <CardHeader>
             <CardTitle>Total Orders</CardTitle>
@@ -95,7 +94,6 @@ const ProviderChart = ({ data }: ChartProps) => {
           </CardContent>
         </Card>
 
-        {/* Total Revenue */}
         <Card>
           <CardHeader>
             <CardTitle>Total Revenue</CardTitle>
@@ -107,7 +105,6 @@ const ProviderChart = ({ data }: ChartProps) => {
           </CardContent>
         </Card>
 
-        {/* Total Meal Items */}
         <Card>
           <CardHeader>
             <CardTitle>Total Meal Items</CardTitle>
@@ -127,19 +124,20 @@ const ProviderChart = ({ data }: ChartProps) => {
             <CardTitle>Order Statistics</CardTitle>
           </CardHeader>
           <CardContent>
-            {/* Pie Chart */}
-            <div className="w-full md:w-3/4 lg:w-1/2 mx-auto">
-              <div className="h-64 sm:h-80 md:h-96">
-                <Pie data={pieData} options={options} />
+            {/* Responsive Charts */}
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-8 w-full">
+              {/* Pie Chart */}
+              <div className="w-full lg:w-1/2">
+                <div className="h-64 sm:h-80 md:h-96">
+                  <Pie data={pieData} options={options} />
+                </div>
               </div>
-            </div>
-          </CardContent>
 
-          <CardContent>
-            {/* Bar Chart */}
-            <div className="w-full md:w-3/4 lg:w-1/2 mx-auto">
-              <div className="h-64 sm:h-80 md:h-96">
-                <Bar data={barData} options={options} />
+              {/* Bar Chart */}
+              <div className="w-full lg:w-1/2">
+                <div className="h-64 sm:h-80 md:h-96">
+                  <Bar data={barData} options={options} />
+                </div>
               </div>
             </div>
           </CardContent>

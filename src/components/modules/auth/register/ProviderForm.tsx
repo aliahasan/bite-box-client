@@ -71,7 +71,7 @@ const ProviderForm = () => {
           />
         </div>
 
-        <div>
+        <div className="my-4">
           <Button
             type="submit"
             disabled={loading}
@@ -82,9 +82,12 @@ const ProviderForm = () => {
         </div>
 
         <div>
-          <p>
-            Already have an account?{" "}
-            <Link className="text-blue-700" href="/login">
+          <p className="px-8 text-center text-sm text-muted-foreground">
+            Already have an account? Please{" "}
+            <Link
+              href="/login"
+              className="underline underline-offset-4 text-blue-600"
+            >
               Login
             </Link>
           </p>

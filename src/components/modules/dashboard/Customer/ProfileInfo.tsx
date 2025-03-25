@@ -24,105 +24,151 @@ const ProfileInfo = ({ user }: UserProps) => {
       isEditing={isEditing}
     />
   ) : (
-    <div className="max-w-3xl mx-auto mt-10 bg-white shadow-none border rounded-xl p-6 space-y-6">
-      {/* Profile Header */}
-      <div className="relative flex items-center gap-6 border-b pb-6">
-        {/* Profile Image */}
-        <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-gray-300">
-          {user?.photo ? (
-            <Image
-              src={user.photo}
-              alt={user?.name || "User"}
-              width={200}
-              height={200}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="flex items-center justify-center w-full h-full bg-gray-200 text-gray-600 text-xl font-semibold">
-              {user?.name?.charAt(0) || "U"}
+    <div className="w-full bg-white px-4 py-8">
+      {/* Full-width container */}
+      <div className="max-w-7xl mx-auto">
+        {/* Profile Header */}
+        <div className="flex flex-col md:flex-row items-start md:items-center gap-6 pb-8 border-b">
+          {/* Profile Image */}
+          <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-gray-200">
+            {user?.photo ? (
+              <Image
+                src={user.photo}
+                alt={user?.name || "User"}
+                width={200}
+                height={200}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="flex items-center justify-center w-full h-full bg-gray-100 text-gray-600 text-4xl font-semibold">
+                {user?.name?.charAt(0) || "U"}
+              </div>
+            )}
+          </div>
+
+          {/* User Info */}
+          <div className="flex-1">
+            <h1 className="text-3xl font-bold text-gray-900">
+              {user?.name || "Unknown"}
+            </h1>
+            <p className="text-gray-600 text-lg mt-1">
+              {user?.email || "No email provided"}
+            </p>
+            <p className="mt-2 inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-medium">
+              {user?.role?.toUpperCase() || "USER"}
+            </p>
+          </div>
+
+          {/* Edit Button */}
+          <Button
+            className="md:ml-auto mt-4 md:mt-0 px-6 py-3 flex items-center gap-2 text-white rounded-lg shadow-sm"
+            onClick={handleEditClick}
+          >
+            <Pencil className="w-5 h-5" />
+            {isEditing ? "Cancel" : "Edit Profile"}
+          </Button>
+        </div>
+
+        {/* User Details - Full width grid */}
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Email */}
+          <div className="p-6 border rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+            <div className="flex items-center gap-4">
+              <Mail className="text-orange-500 w-6 h-6" />
+              <h3 className="font-medium text-gray-500">Email</h3>
             </div>
-          )}
-        </div>
-
-        {/* User Info */}
-        <div>
-          <h1 className="text-2xl font-semibold text-gray-800">
-            {user?.name || "Unknown"}
-          </h1>
-          <p className="text-gray-600 text-sm bg-gray-100 px-3 py-1 rounded-full inline-block">
-            {user?.role?.toUpperCase() || "USER"}
-          </p>
-        </div>
-
-        {/* Edit Button */}
-        <Button
-          className="ml-auto px-4 py-2 flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
-          onClick={handleEditClick}
-        >
-          <Pencil className="w-4 h-4" />
-          {isEditing ? "Cancel" : "Edit Profile"}
-        </Button>
-      </div>
-
-      {/* User Details */}
-      <div className="grid md:grid-cols-2 gap-6 text-gray-700">
-        {/* Email */}
-        <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-md">
-          <Mail className="text-gray-500" />
-          <p>{user?.email || "Not provided"}</p>
-        </div>
-
-        {/* Phone */}
-        <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-md">
-          <Phone className="text-gray-500" />
-          <p>{user?.phone || "Not provided"}</p>
-        </div>
-
-        {/* Delivery Address */}
-        <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-md">
-          <MapPin className="text-gray-500" />
-          <p>{user?.deliveryAddress || "Not provided"}</p>
-        </div>
-
-        {/* Preferred Cuisine */}
-        <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-md">
-          <Utensils className="text-gray-500" />
-          <p>{user?.preferredCuisine || "Not specified"}</p>
-        </div>
-
-        {/* Dietary Preferences */}
-        <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-md">
-          <p className="font-medium">Dietary Preferences:</p>
-          {user?.dietaryPreferences?.length > 0 ? (
-            <p className="text-gray-600">
-              {user.dietaryPreferences.join(", ")}
+            <p className="mt-2 text-lg font-medium text-gray-900">
+              {user?.email || "Not provided"}
             </p>
-          ) : (
-            <p className="text-gray-400">None</p>
-          )}
-        </div>
+          </div>
 
-        {/* Dietary Restrictions */}
-        <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-md">
-          <p className="font-medium">Dietary Restrictions:</p>
-          {user?.dietaryRestrictions?.length > 0 ? (
-            <p className="text-gray-600">
-              {user.dietaryRestrictions.join(", ")}
+          {/* Phone */}
+          <div className="p-6 border rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+            <div className="flex items-center gap-4">
+              <Phone className="text-orange-500 w-6 h-6" />
+              <h3 className="font-medium text-gray-500">Phone</h3>
+            </div>
+            <p className="mt-2 text-lg font-medium text-gray-900">
+              {user?.phone || "Not provided"}
             </p>
-          ) : (
-            <p className="text-gray-400">None</p>
-          )}
-        </div>
+          </div>
 
-        {/* Created At */}
-        <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-md col-span-full">
-          <Calendar className="text-gray-500" />
-          <p>
-            Joined:{" "}
-            {user?.createdAt
-              ? new Date(user.createdAt).toLocaleDateString()
-              : "Unknown"}
-          </p>
+          {/* Delivery Address */}
+          <div className="p-6 border rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+            <div className="flex items-center gap-4">
+              <MapPin className="text-orange-500 w-6 h-6" />
+              <h3 className="font-medium text-gray-500">Address</h3>
+            </div>
+            <p className="mt-2 text-lg font-medium text-gray-900">
+              {user?.deliveryAddress || "Not provided"}
+            </p>
+          </div>
+
+          {/* Preferred Cuisine */}
+          <div className="p-6 border rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+            <div className="flex items-center gap-4">
+              <Utensils className="text-orange-500 w-6 h-6" />
+              <h3 className="font-medium text-gray-500">Preferred Cuisine</h3>
+            </div>
+            <p className="mt-2 text-lg font-medium text-gray-900">
+              {user?.preferredCuisine || "Not specified"}
+            </p>
+          </div>
+
+          {/* Dietary Preferences */}
+          <div className="p-6 border rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+            <h3 className="font-medium text-gray-500">Dietary Preferences</h3>
+            {user?.dietaryPreferences?.length > 0 ? (
+              <div className="mt-2 flex flex-wrap gap-2">
+                {user.dietaryPreferences.map((pref) => (
+                  <span
+                    key={pref}
+                    className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
+                  >
+                    {pref}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <p className="mt-2 text-gray-400">None</p>
+            )}
+          </div>
+
+          {/* Dietary Restrictions */}
+          <div className="p-6 border rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+            <h3 className="font-medium text-gray-500">Dietary Restrictions</h3>
+            {user?.dietaryRestrictions?.length > 0 ? (
+              <div className="mt-2 flex flex-wrap gap-2">
+                {user.dietaryRestrictions.map((restriction) => (
+                  <span
+                    key={restriction}
+                    className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm"
+                  >
+                    {restriction}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <p className="mt-2 text-gray-400">None</p>
+            )}
+          </div>
+
+          {/* Created At */}
+          <div className="p-6 border rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors col-span-full lg:col-span-1">
+            <div className="flex items-center gap-4">
+              <Calendar className="text-gray-500 w-6 h-6" />
+              <h3 className="font-medium text-gray-500">Member Since</h3>
+            </div>
+            <p className="mt-2 text-lg font-medium text-gray-900">
+              {user?.createdAt
+                ? new Date(user.createdAt).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })
+                : "Unknown"}
+            </p>
+          </div>
         </div>
       </div>
     </div>

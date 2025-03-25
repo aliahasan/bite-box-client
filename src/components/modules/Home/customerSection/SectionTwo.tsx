@@ -1,4 +1,5 @@
 "use client";
+import BBContainer from "@/components/core/BBContainer/BBContainer";
 import {
   Card,
   CardDescription,
@@ -32,7 +33,7 @@ const SectionTwo = () => {
 
   return (
     <section className="my-24 py-20 bg-gray-50">
-      <div className="container mx-auto px-4">
+      <BBContainer>
         <motion.h2
           className="text-4xl font-bold text-center mb-12"
           initial={{ opacity: 0, y: 50 }}
@@ -63,7 +64,7 @@ const SectionTwo = () => {
             </motion.div>
           ))}
         </div>
-      </div>
+      </BBContainer>
     </section>
   );
 };

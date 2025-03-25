@@ -24,7 +24,7 @@ const FlashSaleSection = async () => {
             <CountDown />
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 my-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 my-5">
           {flashSaleMeals?.map((meal: IMeal, index: number) => (
             <MealCard key={index} meal={meal} />
           ))}

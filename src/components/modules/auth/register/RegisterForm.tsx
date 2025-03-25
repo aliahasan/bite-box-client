@@ -12,38 +12,40 @@ import ProviderForm from "./ProviderForm";
 
 const RegisterForm = () => {
   return (
-    <Tabs defaultValue="customer" className="w-[400px]">
-      <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="customer">Customer</TabsTrigger>
-        <TabsTrigger value="provider">Provider</TabsTrigger>
-      </TabsList>
-      <TabsContent value="customer">
-        <Card>
-          <CardHeader>
-            <CardTitle>Create Account</CardTitle>
-            <CardDescription>Register as Customer</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <div className="space-y-1">
-              <CustomerForm />
-            </div>
-          </CardContent>
-        </Card>
-      </TabsContent>
-      <TabsContent value="provider">
-        <Card>
-          <CardHeader>
-            <CardTitle>Create Account</CardTitle>
-            <CardDescription>Register as Provider</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <div className="space-y-1">
-              <ProviderForm />
-            </div>
-          </CardContent>
-        </Card>
-      </TabsContent>
-    </Tabs>
+    <section>
+      <Card
+        className="
+      shadow-none border"
+      >
+        <CardHeader>
+          <CardTitle className="text-center text-2xl">Create Account</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Tabs defaultValue="customer" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 mb-4">
+              <TabsTrigger value="customer">Customer</TabsTrigger>
+              <TabsTrigger value="provider">Provider</TabsTrigger>
+            </TabsList>
+            <TabsContent value="customer">
+              <div className="">
+                <CardDescription className="text-center">
+                  Register as Customer
+                </CardDescription>
+                <CustomerForm />
+              </div>
+            </TabsContent>
+            <TabsContent value="provider">
+              <div className="">
+                <CardDescription className="text-center">
+                  Register as Provider
+                </CardDescription>
+                <ProviderForm />
+              </div>
+            </TabsContent>
+          </Tabs>
+        </CardContent>
+      </Card>
+    </section>
   );
 };
 

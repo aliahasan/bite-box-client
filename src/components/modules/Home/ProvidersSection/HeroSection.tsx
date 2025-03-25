@@ -1,5 +1,6 @@
 "use client";
 
+import BBContainer from "@/components/core/BBContainer/BBContainer";
 import {
   Card,
   CardDescription,
@@ -38,17 +39,17 @@ export const HeroSection = () => {
 
   return (
     <section className="my-24 py-20 bg-gray-50 ">
-      <div className="container mx-auto px-4">
+      <BBContainer>
         <div className="text-center max-w-3xl mx-auto">
           <motion.h2
-            className="text-4xl md:text-5xl font-bold text-gray-900"
+            className="text-3xl  font-bold text-gray-900"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
             Why Partner with Us?
           </motion.h2>
-          <p className="mt-4 text-lg py-4 text-gray-600">
+          <p className=" text-lg py-4 text-gray-600">
             Join our network of meal providers and grow your business
             effortlessly.
           </p>
@@ -75,7 +76,7 @@ export const HeroSection = () => {
             </motion.div>
           ))}
         </div>
-      </div>
+      </BBContainer>
     </section>
   );
 };

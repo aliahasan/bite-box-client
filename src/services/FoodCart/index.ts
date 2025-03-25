@@ -36,6 +36,7 @@ export const getSingleFoodCart = async (foodCartId: string) => {
     return Error(error);
   }
 };
+
 export const getAllFoodCarts = async () => {
   try {
     const res = await fetch(`${url}/foodcart`, {

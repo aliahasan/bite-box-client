@@ -149,14 +149,15 @@ export const deliveryChargeSelector = (state: RootState) => {
 // Payment calculation
 export const subtotalSelector = (state: RootState) => {
   return state.cart.meals.reduce((acc, meal) => {
+    // If the meal has an offer price, calculate using offer price
+    const price = meal.offerPrice ? meal.offerPrice : meal.price;
+    let finalPrice = price;
     if (state.cart.portionSize === "medium") {
-      return acc + meal.price * meal.quantity + 20;
+      finalPrice += 20;
+    } else if (state.cart.portionSize === "large") {
+      finalPrice += 40;
     }
-    if (state.cart.portionSize === "large") {
-      return acc + meal.price * meal.quantity + 40;
-    } else {
-      return acc + meal.price * meal.quantity;
-    }
+    return acc + finalPrice * meal.quantity;
   }, 0);
 };
 

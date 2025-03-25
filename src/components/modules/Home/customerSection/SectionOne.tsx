@@ -1,6 +1,7 @@
 "use client";
 import bgImage from "@/assets/mealbox-3.jpg";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const SectionOne = () => {
   return (
@@ -22,9 +23,11 @@ const SectionOne = () => {
           Choose your meals, set your dietary preferences, and get fresh meals
           delivered right to your doorstep.
         </p>
-        <Button className="mt-6 px-6 py-3 text-sm rounded-full bg-orange-500 hover:bg-orange-600 transition">
-          Explore Meal Plans
-        </Button>
+        <Link href="/find-meal">
+          <Button className="mt-6 px-6 py-3 text-sm rounded-full bg-orange-500 hover:bg-orange-600 cursor-pointer transition">
+            Explore Meal Plans
+          </Button>
+        </Link>
       </div>
     </div>
   );

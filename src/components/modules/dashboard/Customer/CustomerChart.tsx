@@ -36,6 +36,17 @@ interface ChartProps {
 }
 
 const CustomerChart = ({ data }: ChartProps) => {
+  console.log(data);
+
+  // Calculate total for each status
+  const pendingOrders =
+    data.orderBreakdown.find((item) => item.status === "Processing")?.total ||
+    0;
+  const completedOrders =
+    data.orderBreakdown.find((item) => item.status === "Completed")?.total || 0;
+  const cancelledOrders =
+    data.orderBreakdown.find((item) => item.status === "Cancelled")?.total || 0;
+
   // Pie chart data
   const pieData = {
     labels: data.orderBreakdown.map((item) => item?.status),
@@ -88,7 +99,7 @@ const CustomerChart = ({ data }: ChartProps) => {
             <CardTitle>Total Orders</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-4xl font-bold text-red-500">
+            <p className="text-4xl font-bold text-orange-500">
               {data?.totalOrders}
             </p>
           </CardContent>
@@ -100,9 +111,43 @@ const CustomerChart = ({ data }: ChartProps) => {
             <CardTitle>Total Cost</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-4xl font-bold text-green-500">
+            <p className="text-4xl font-bold text-orange-500">
               ${data?.totalCost}
             </p>
+          </CardContent>
+        </Card>
+
+        {/* Pending Orders */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Pending Orders</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-4xl font-bold text-yellow-500">
+              {pendingOrders}
+            </p>
+          </CardContent>
+        </Card>
+
+        {/* Completed Orders */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Completed Orders</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-4xl font-bold text-green-500">
+              {completedOrders}
+            </p>
+          </CardContent>
+        </Card>
+
+        {/* Cancelled Orders */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Cancelled Orders</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-4xl font-bold text-red-500">{cancelledOrders}</p>
           </CardContent>
         </Card>
       </div>
@@ -114,19 +159,20 @@ const CustomerChart = ({ data }: ChartProps) => {
             <CardTitle>Order Statistics</CardTitle>
           </CardHeader>
           <CardContent>
-            {/* Pie Chart */}
-            <div className="w-full md:w-3/4 lg:w-1/2 mx-auto">
-              <div className="h-64 sm:h-80 md:h-96">
-                <Pie data={pieData} options={options} />
+            {/* Responsive Charts */}
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-8 w-full">
+              {/* Pie Chart */}
+              <div className="w-full lg:w-1/2">
+                <div className="h-64 sm:h-80 md:h-96">
+                  <Pie data={pieData} options={options} />
+                </div>
               </div>
-            </div>
-          </CardContent>
 
-          <CardContent>
-            {/* Bar Chart */}
-            <div className="w-full md:w-3/4 lg:w-1/2 mx-auto">
-              <div className="h-64 sm:h-80 md:h-96">
-                <Bar data={barData} options={options} />
+              {/* Bar Chart */}
+              <div className="w-full lg:w-1/2">
+                <div className="h-64 sm:h-80 md:h-96">
+                  <Bar data={barData} options={options} />
+                </div>
               </div>
             </div>
           </CardContent>

@@ -31,7 +31,7 @@ const MealsDetails = ({ meal }: MealDetailsProps) => {
           <div className="w-full lg:w-1/2">
             {/* Meal Name and Price */}
             <div className="mb-6">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              <h1 className="text-3xl  text-gray-900 mb-2">
                 {meal?.name || "Meal Name"}
               </h1>
               <p className="text-sm text-gray-600">
