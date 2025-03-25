@@ -5,9 +5,11 @@ import Image from "next/image";
 import "swiper/css";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+
 interface ReviewSlideProps {
   reviews: IReview[];
 }
+
 const ReviewSlide = ({ reviews }: ReviewSlideProps) => {
   return (
     <section>
@@ -25,11 +27,14 @@ const ReviewSlide = ({ reviews }: ReviewSlideProps) => {
       >
         {reviews.map((review: IReview, index: number) => (
           <SwiperSlide key={index} className="flex justify-center">
-            <Card className="w-full flex flex-col justify-between bg-white text-gray-700 shadow-sm">
+            <Card className="w-full flex flex-col justify-between bg-white text-gray-700 shadow-sm max-h-[280px]">
               <CardHeader className="flex items-center space-x-4">
                 <div>
                   <Image
-                    src={review?.user?.photo || "https://github.com/shadcn.png"}
+                    src={
+                      review?.user?.photo ||
+                      "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_640.png"
+                    }
                     width={60}
                     height={60}
                     alt={review.user?.name}
@@ -44,7 +49,11 @@ const ReviewSlide = ({ reviews }: ReviewSlideProps) => {
                 </div>
               </CardHeader>
               <CardContent className="flex-grow">
-                <p className="text-my-text_clr text-center">{review.review}</p>
+                <p className="text-my-text_clr text-center">
+                  {review.review.length > 80
+                    ? review.review.substring(0, 80) + "..."
+                    : review.review}
+                </p>
               </CardContent>
             </Card>
           </SwiperSlide>

@@ -169,15 +169,17 @@ const MealsDetails = ({ meal }: MealDetailsProps) => {
 
             {/* Reviews Tab Content */}
             <TabsContent value="reviews">
-              <div className="text-center py-10">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
-                  <Star className="h-8 w-8 text-gray-400" />
-                </div>
-                <h3 className="text-lg font-medium">No Reviews Yet</h3>
-                <p className="text-gray-500 mt-2">
-                  Be the first to review this food cart!
-                </p>
-              </div>
+              <Card className="text-center py-10">
+                <CardContent>
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
+                    <Star className="h-8 w-8 text-gray-400" />
+                  </div>
+                  <h3 className="text-lg font-medium">No Reviews Yet</h3>
+                  <p className="text-gray-500 mt-2">
+                    Be the first to review this food cart!
+                  </p>
+                </CardContent>
+              </Card>
             </TabsContent>
           </Tabs>
         </div>

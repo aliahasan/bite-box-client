@@ -3,7 +3,6 @@ import { getAllMealCategories } from "@/services/category";
 
 const MealCategoryPage = async () => {
   const { data } = await getAllMealCategories();
-  console.log(data);
   return (
     <div>
       <MangeCategories categories={data} />

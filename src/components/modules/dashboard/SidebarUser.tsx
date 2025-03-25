@@ -36,7 +36,6 @@ export function SidebarUser() {
     if (protectedRoutes.some((route) => pathName.match(route))) {
       router.push("/");
     }
-    console.log("loog out");
     dispatch(clearCart());
   };
 

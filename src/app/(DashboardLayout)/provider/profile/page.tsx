@@ -204,26 +204,6 @@ const FoodCartProfilePage = async () => {
 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Actions</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-2">
-                    <Button className="w-full justify-start">
-                      Order Online
-                    </Button>
-                    <Button variant="outline" className="w-full justify-start">
-                      Write a Review
-                    </Button>
-                    <Button variant="outline" className="w-full justify-start">
-                      Save for Later
-                    </Button>
-                    <Button variant="outline" className="w-full justify-start">
-                      Share
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader>
                     <CardTitle>Active Since</CardTitle>
                   </CardHeader>
                   <CardContent>

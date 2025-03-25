@@ -58,7 +58,7 @@ export const getCurrentUser = async () => {
 
 export const logout = async () => {
   (await cookies()).delete("accessToken");
-  (await cookies()).delete("refreshToken");
+  //   (await cookies()).delete("refreshToken");
 };
 
 export const getNewToken = async () => {

@@ -42,8 +42,6 @@ export const getMyFoodCartOrders = async () => {
 };
 
 export const updateOrder = async (orderId: string, status: string) => {
-  console.log(status); // Debugging to check what is being sent
-
   const token = await getValidToken();
 
   try {

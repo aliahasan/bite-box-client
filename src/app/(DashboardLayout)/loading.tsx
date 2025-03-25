@@ -2,7 +2,7 @@ import Loader from "@/components/core/Loader";
 
 const Loading = () => {
   return (
-    <div>
+    <div className="mt-20">
       <Loader />
     </div>
   );

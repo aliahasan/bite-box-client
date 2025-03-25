@@ -19,15 +19,39 @@ export const getFoodCartProfile = async () => {
   }
 };
 
-export const getMyFoodCartMeals = async () => {
+export const getMyFoodCartMeals = async (
+  page?: string,
+  limit?: string,
+  query?: { [key: string]: string | string[] | undefined }
+) => {
+  const params = new URLSearchParams();
+  if (query?.price) {
+    params.append("minPrice", "0");
+    params.append("maxPrice", query?.price.toString());
+  }
+  if (query?.category) {
+    params.append("category", query?.category.toString());
+  }
+  if (query?.search) {
+    params.append("search", query?.search.toString());
+  }
+  if (query?.cuisine) {
+    params.append("cuisine", query?.cuisine.toString());
+  }
+  if (query?.averageRating) {
+    params.append("averageRating", query.averageRating.toString());
+  }
   const token = await getValidToken();
   try {
-    const res = await fetch(`${url}/foodcart-meal`, {
-      method: "GET",
-      headers: {
-        Authorization: token,
-      },
-    });
+    const res = await fetch(
+      `${url}/foodcart-meal?page=${page}&limit=${limit}&${params}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
     return await res.json();
   } catch (error: any) {
     return Error(error);

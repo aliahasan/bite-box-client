@@ -30,6 +30,7 @@ const MealCard = ({ meal }: { meal: IMeal }) => {
           src={meal?.image}
           alt={meal?.name}
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover rounded-lg transition-transform duration-300 hover:scale-105"
           priority
         />

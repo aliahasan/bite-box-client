@@ -47,7 +47,6 @@ const UpdateMealForm = ({ meal }: { meal: IMeal }) => {
       isLoading(true);
       const toastId = toast.loading("updating...");
       const res = await updateMealInfo(meal._id, formdata);
-      console.log(res);
       if (res?.success) {
         toast.success(res?.message, { id: toastId });
       } else {

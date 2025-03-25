@@ -28,14 +28,11 @@ const MealDetailsPage = async ({
             <div>
               {relatedMeals && (
                 <div>
+                  <h1 className="text-3xl font-medium">Related Meals</h1>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-10">
                     {relatedMeals?.map((meal: IMeal, index: number) => (
                       <div key={index}>
-                        <div>
-                          <h1 className="text-3xl font-medium pb-6">
-                            Related Meals
-                          </h1>
-                        </div>
+                        <div></div>
                         <MealCard meal={meal}></MealCard>
                       </div>
                     ))}

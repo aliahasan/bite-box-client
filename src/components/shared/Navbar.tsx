@@ -25,6 +25,8 @@ const Navbar = () => {
     { label: "Home", href: "/" },
     { label: "Find Meals", href: "/find-meal" },
     { label: "Meal Providers", href: "/meal-providers" },
+    { label: "About Us", href: "/about" },
+    { label: "Privacy-Policy", href: "/policy" },
   ];
 
   return (

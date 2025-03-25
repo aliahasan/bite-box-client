@@ -19,7 +19,7 @@ const SearchBar = () => {
 
   return (
     <div className="flex flex-col items-start justify-start gap-y-2 relative">
-      <Label className="text-left">Search Food</Label>
+      <Label className="text-left text-lg">Search Food</Label>
       <Input
         onChange={(e) => handleSearch("search", e.target.value)}
         type="text"

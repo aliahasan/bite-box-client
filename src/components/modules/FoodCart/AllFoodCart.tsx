@@ -9,7 +9,6 @@ const AllFoodCart = ({ foodCart }: { foodCart: IFoodCart }) => {
   return (
     <Link href={`/meal-providers/${foodCart._id}`}>
       <Card className="overflow-hidden hover:shadow-lg p-0 transition-shadow duration-300 h-full flex flex-col">
-        {/* Image container with overlay for status badge */}
         <div className="relative h-48 sm:h-56">
           <div className="absolute inset-0">
             <Image
@@ -22,8 +21,8 @@ const AllFoodCart = ({ foodCart }: { foodCart: IFoodCart }) => {
           <div className="absolute top-3 right-3 z-10">
             <Badge
               className={
-                foodCart.isActive
-                  ? "bg-green-500 hover:bg-green-600"
+                foodCart?.isActive
+                  ? "bg-orange-500 hover:bg-orange-600"
                   : "bg-red-500 hover:bg-red-600"
               }
             >

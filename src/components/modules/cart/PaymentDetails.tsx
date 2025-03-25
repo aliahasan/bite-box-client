@@ -43,7 +43,6 @@ const PaymentDetails = () => {
         throw new Error("Shipping address is missing");
       }
       const res = await createOrder(order);
-      console.log(res);
       if (res?.success) {
         toast.success(res.message, { id: loading });
         disPatch(clearCart());

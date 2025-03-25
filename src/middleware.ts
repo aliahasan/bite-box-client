@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCurrentUser } from "./services/authService";
 
-const url = process.env.NEXT_PUBLIC_URL as string;
 const app_url = process.env.NEXT_PUBLIC_APP_URL;
 
 type Role = keyof typeof roleBasedPrivateRotes;
@@ -21,7 +20,7 @@ export const middleware = async (request: NextRequest) => {
       return NextResponse.next();
     } else {
       return NextResponse.redirect(
-        new URL(`${url}/login?redirectPath=${pathname}`, request.url)
+        new URL(`${app_url}/login?redirectPath=${pathname}`, request.url)
       );
     }
   }

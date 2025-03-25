@@ -17,7 +17,7 @@ const MealProviders = async () => {
     <>
       <MealBanner path="Home-Meals-FoodCart" title="Meal Provider Page" />
       <BBContainer>
-        <div>
+        <div className="my-20">
           {foodCarts?.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 my-10">
               {foodCarts?.map((foodCart: IFoodCart, index: number) => (

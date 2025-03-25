@@ -16,7 +16,7 @@ const Reviews = async () => {
               </p>
             </div>
             <div className="py-10">
-              {reviews && <ReviewSlide reviews={reviews} />}
+              <ReviewSlide reviews={reviews} />
             </div>
           </div>
         </div>

@@ -26,11 +26,7 @@ export const createReview = async (foodCartId: string, data: any) => {
 
 export const getAllReviews = async () => {
   try {
-    const res = await fetch(`${url}/review`, {
-      next: {
-        revalidate: 30,
-      },
-    });
+    const res = await fetch(`${url}/review`);
     const result = await res.json();
     return result;
   } catch (error: any) {

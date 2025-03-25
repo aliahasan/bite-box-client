@@ -27,10 +27,12 @@ const FindMealPage = async ({
     <>
       <MealBanner title="All-Meals" path="Home-Meal" />
       <BBContainer>
-        <AllMeals meals={meals} />
-        <div className="my-10 flex items-center justify-center">
-          <Pagination totalPage={meta?.totalPage} />
-        </div>
+        <main className="py-10">
+          <AllMeals meals={meals} />
+          <div className="my-10 flex items-center justify-center">
+            <Pagination totalPage={meta?.totalPage} />
+          </div>
+        </main>
       </BBContainer>
     </>
   );

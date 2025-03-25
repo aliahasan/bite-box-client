@@ -1,9 +1,9 @@
-import Loader from "@/components/core/Loader";
+import { MealSkeleton } from "@/components/modules/Meal/Skeleton/MealSkeleton";
 
 const Loading = () => {
   return (
     <div>
-      <Loader />
+      <MealSkeleton />
     </div>
   );
 };

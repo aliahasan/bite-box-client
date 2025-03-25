@@ -156,7 +156,7 @@ const ProfileInfo = ({ user }: UserProps) => {
           {/* Created At */}
           <div className="p-6 border rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors col-span-full lg:col-span-1">
             <div className="flex items-center gap-4">
-              <Calendar className="text-gray-500 w-6 h-6" />
+              <Calendar className="text-orange-500 w-6 h-6" />
               <h3 className="font-medium text-gray-500">Member Since</h3>
             </div>
             <p className="mt-2 text-lg font-medium text-gray-900">

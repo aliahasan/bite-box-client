@@ -180,7 +180,9 @@ const ManageAllMeal = ({ meals, meta }: IMangeMealProps) => {
         </div>
       </div>
       <BBTable columns={columns} data={meals || []} />
-      <Pagination totalPage={meta?.totalPage} />
+      <div className="py-10 text-center">
+        <Pagination totalPage={meta?.totalPage} />
+      </div>
     </div>
   );
 };

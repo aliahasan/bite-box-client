@@ -1,8 +1,19 @@
 import ManageAllMeal from "@/components/modules/dashboard/Provider/ManageAllMeal";
 import { getMyFoodCartMeals } from "@/services/Provider";
 
-const AllMealPage = async () => {
-  const { data, meta } = await getMyFoodCartMeals();
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+const AllMealPage = async ({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) => {
+  const query = await searchParams;
+  const { page } = await searchParams;
+  const { data, meta } = await getMyFoodCartMeals(
+    page as string,
+    undefined,
+    query
+  );
   return (
     <div>
       <ManageAllMeal meals={data} meta={meta} />

@@ -36,8 +36,6 @@ interface ChartProps {
 }
 
 const CustomerChart = ({ data }: ChartProps) => {
-  console.log(data);
-
   // Calculate total for each status
   const pendingOrders =
     data.orderBreakdown.find((item) => item.status === "Processing")?.total ||
